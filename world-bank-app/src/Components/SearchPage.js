@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Form } from "react-bootstrap";
+import Network from "./Network";
 
 class SearchPage extends React.Component {
   constructor() {
@@ -11,31 +12,44 @@ class SearchPage extends React.Component {
       startYear: 1960,
       endYear: 2015,
     };
+    this.network = new Network();
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    let { country, indicator, year } = this.state;
-    country = country.split(" ").join("");
-    console.log(country, indicator ? indicator : "All", year ? year : "All");
+    const { country, indicator, startYear, endYear } = this.state;
+    const response = await this.network.fetchData(
+      country,
+      indicator,
+      startYear,
+      endYear
+    );
+
+    console.log(response);
   };
 
   handleChange = (e) => {
+    if (e.target.id === "startYear" || e.target.id === "endYear") {
+      let newYear = e.target.value > 2015 ? 2015 : e.target.value;
+      newYear = newYear < 1960 ? 1960 : newYear;
+      console.log(newYear);
+
+      this.setState({ [e.target.id]: newYear });
+    }
     this.setState({ [e.target.id]: e.target.value });
-    console.log(e.target.value);
   };
 
-  getYearOptions = () => {
-    let years = Array(2016 - 1960).fill(0);
+  //   getYearOptions = () => {
+  //     let years = Array(2016 - 1960).fill(0);
 
-    return years.map((element, i) => {
-      return (
-        <option key={i} value={1960 + i}>
-          {1960 + i}
-        </option>
-      );
-    });
-  };
+  //     return years.map((element, i) => {
+  //       return (
+  //         <option key={i} value={1960 + i}>
+  //           {1960 + i}
+  //         </option>
+  //       );
+  //     });
+  //   };
 
   render() {
     return (
