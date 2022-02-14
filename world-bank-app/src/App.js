@@ -2,8 +2,17 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Register from "./Register";
+import LoginPage from "./Components/LoginPage";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      emailInput: "",
+      passwordInput: "",
+    };
+  }
+
   async postUser(email, password) {
     const endpoint = "http://localhost:8080/";
     const response = await fetch(endpoint, {
@@ -26,6 +35,7 @@ class App extends React.Component {
         <Register
           registerUser={(email, password) => this.postUser(email, password)}
         />
+        <LoginPage />
       </div>
     );
   }
