@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import Register from "./Register";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  async postUser(email, password) {
+    const endpoint = "http://localhost:8080/";
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    const json = response.json();
+    return json;
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Register
+          registerUser={(email, password) => this.postUser(email, password)}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
