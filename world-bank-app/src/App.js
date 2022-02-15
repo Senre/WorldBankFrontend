@@ -16,14 +16,19 @@ class App extends React.Component {
   }
 
   setData = (data) => {
-    this.setState({ results: data ? data : [] });
+    console.log("changed");
+    this.setState({ results: data ? [...data] : [] });
   };
 
   render() {
     return (
       <Switch>
         <Route path="/home">
-          <SearchPage setData={(data) => this.setData(data)} />
+          {this.state.results.length === 0 ? (
+            <SearchPage setData={(data) => this.setData(data)} />
+          ) : (
+            <Redirect to="/results" />
+          )}
         </Route>
         <Route path="/register">
           <Register />
@@ -32,11 +37,7 @@ class App extends React.Component {
           <LoginPage />
         </Route>
         <Route path="/results">
-          {this.state.results.length > 0 ? (
-            <Results data={this.state.results} setData={() => this.setData()} />
-          ) : (
-            <Redirect to="/home" />
-          )}
+          <Results data={this.state.results} setData={() => this.setData()} />
         </Route>
         <Route path="/">
           <Redirect to="/register" />
