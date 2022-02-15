@@ -1,13 +1,19 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import { Route, Redirect, Switch } from "react-router-dom";
 import Register from "./Register";
 import LoginPage from "./Components/LoginPage";
-import { Route, Redirect, Switch } from "react-router-dom";
 import SearchPage from "./Components/SearchPage";
-import Register from "./Register";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false,
+    };
+  }
+
   render() {
     return (
       <Switch>
@@ -17,11 +23,15 @@ class App extends React.Component {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/login">
+        <Route path="/login" component={LoginPage}>
           <LoginPage />
         </Route>
         <Route path="/">
-          <Redirect to="/register" />
+          {this.state.isLoggedIn ? (
+            <Redirect to="/home" />
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
       </Switch>
     );
