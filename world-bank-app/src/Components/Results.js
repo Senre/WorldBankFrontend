@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from "recharts";
+import Graph from "./Graph";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -45,28 +38,7 @@ class Results extends React.Component {
         item.value = Number(item.value);
         return item;
       });
-      return (
-        <div className="graph-container">
-          <h5 className="graph-title">{altData[0].indicatorname}</h5>
-          <LineChart
-            width={600}
-            height={300}
-            data={altData}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-          >
-            <Line
-              connectNulls
-              type="monotone"
-              dataKey="value"
-              stroke="#8884d8"
-            />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="year" />
-            <YAxis />
-            <Tooltip />
-          </LineChart>
-        </div>
-      );
+      return <Graph data={altData} />;
     } else if (data.length === 1) {
       return (
         <h3>
@@ -91,6 +63,7 @@ class Results extends React.Component {
   };
 
   render() {
+    const { data } = this.state;
     return (
       <main>
         <header className="main-header">
@@ -104,6 +77,7 @@ class Results extends React.Component {
             </div>
           </div>
         </header>
+        <h1 className="results-title">{data[0].countryname}</h1>
         <div className="results-content">{this.renderIncomingData()}</div>
       </main>
     );
