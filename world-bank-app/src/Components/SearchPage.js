@@ -25,7 +25,7 @@ class SearchPage extends React.Component {
       startYear,
       endYear
     );
-
+    this.props.setData(response);
     console.log("response is", response);
   };
 
