@@ -39,18 +39,6 @@ class SearchPage extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  //   getYearOptions = () => {
-  //     let years = Array(2016 - 1960).fill(0);
-
-  //     return years.map((element, i) => {
-  //       return (
-  //         <option key={i} value={1960 + i}>
-  //           {1960 + i}
-  //         </option>
-  //       );
-  //     });
-  //   };
-
   render() {
     return (
       <main>
