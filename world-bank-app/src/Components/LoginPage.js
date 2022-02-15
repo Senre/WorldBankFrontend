@@ -4,14 +4,16 @@ import "../App.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import Network from "./Network";
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailInput: "",
-      passwordInput: "",
+      email: "",
+      password: "",
     };
+    this.network = new Network();
   }
 
   async displayUser(email, password) {
@@ -27,12 +29,18 @@ class LoginPage extends React.Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const email = this.state.emailInput;
-    const password = this.state.passwordInput;
-    // const response = displayUser(email, password);
-    // await this.props.setLogin(response);
-    // for when we have a part that shows logged in people
-    this.setState({ emailInput: "", passwordInput: "" });
+    const { email, password } = this.state;
+    if (email && password) {
+      const response = await this.network.loggingIn(email, password);
+
+      if (response.ok) {
+        this.props.loggingIn();
+      } else {
+        console.log("Incorrect Email or Password");
+      }
+    } else {
+      console.log("error");
+    }
   }
 
   handleChange(e) {
@@ -48,6 +56,7 @@ class LoginPage extends React.Component {
             <Form.Control
               type="email"
               placeholder="Enter email"
+              value={this.state.email}
               onChange={(e) => this.handleChange(e)}
             />
             <Form.Text className="text-muted">
@@ -60,6 +69,7 @@ class LoginPage extends React.Component {
             <Form.Control
               type="password"
               placeholder="Password"
+              value={this.state.password}
               onChange={(e) => this.handleChange(e)}
             />
           </Form.Group>
