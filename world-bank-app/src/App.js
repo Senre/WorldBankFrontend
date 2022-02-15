@@ -38,7 +38,11 @@ class App extends React.Component {
           <LoginPage />
         </Route>
         <Route path="/results">
-          <Results data={this.state.results} setData={() => this.setData()} />
+          {this.state.results.length === 0 ? (
+            <Redirect to="/home" />
+          ) : (
+            <Results data={this.state.results} setData={() => this.setData()} />
+          )}
         </Route>
         <Route path="/">
           {this.state.isLoggedIn ? (
