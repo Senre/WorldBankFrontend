@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../App.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -69,8 +70,12 @@ class LoginPage extends React.Component {
             Submit
           </Button>
           <Form.Group className="mb-3" controlId="formBasicButton">
-            <Form.Text className="text-muted">Don't have an account?</Form.Text>
-            <Button variant="secondary">Create an Account</Button>
+            <Form.Text className="text-muted">
+              Don't have an account?{" "}
+            </Form.Text>
+            <Link to="/register">
+              <Button variant="secondary">Create an Account</Button>
+            </Link>
           </Form.Group>
         </Form>
       </div>
