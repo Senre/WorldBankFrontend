@@ -3,15 +3,18 @@ import Button from "react-bootstrap/Button";
 import { Col, Row, Form } from "react-bootstrap";
 import Network from "./Network";
 import { Link } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 class SearchPage extends React.Component {
   constructor() {
     super();
     this.state = {
       country: "",
+      countryCompare: "",
       indicator: "",
       startYear: 1960,
       endYear: 2015,
+      compare: false,
     };
     this.network = new Network();
   }
@@ -29,6 +32,20 @@ class SearchPage extends React.Component {
     console.log("response is", response);
   };
 
+  getIndicatorNames = async () => {
+    const response = await this.network.fetchIndicatorNames();
+    const indicators = response.rows.map((entry) => {
+      return entry.indicatorname;
+    });
+    console.log(indicators);
+  };
+
+  activateCompare = async () => {
+    const { compare } = this.state;
+    this.setState({ compare: !compare });
+    this.getIndicatorNames();
+  };
+
   handleChange = (e) => {
     if (e.target.id === "startYear" || e.target.id === "endYear") {
       let newYear = e.target.value > 2015 ? 2015 : e.target.value;
@@ -38,6 +55,23 @@ class SearchPage extends React.Component {
       this.setState({ [e.target.id]: newYear });
     }
     this.setState({ [e.target.id]: e.target.value });
+  };
+
+  comparedCountryForm = () => {
+    return (
+      <Row>
+        <Form.Group className="mb-3" id="form-country-search" as={Col}>
+          <Form.Control
+            type="text"
+            placeholder="Enter a Country name..."
+            id="countryCompare"
+            value={this.state.countryCompare}
+            onChange={this.handleChange}
+            size="lg"
+          />
+        </Form.Group>
+      </Row>
+    );
   };
 
   renderSearchForm = () => {
@@ -54,6 +88,14 @@ class SearchPage extends React.Component {
                 onChange={this.handleChange}
                 size="lg"
               />
+              {this.state.compare && this.comparedCountryForm()}
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={this.activateCompare}
+              >
+                {this.state.compare ? "-" : "+"}
+              </Button>
             </Form.Group>
 
             <Form.Group className="mb-3" as={Col}>
