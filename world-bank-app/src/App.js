@@ -16,20 +16,27 @@ class App extends React.Component {
   }
 
   setData = (data) => {
-    this.setState({ data: data ? data : [] });
+    this.setState({ results: data ? data : [] });
   };
 
   render() {
     return (
       <Switch>
         <Route path="/home">
-          <SearchPage />
+          <SearchPage setData={(data) => this.setData(data)} />
         </Route>
         <Route path="/register">
           <Register />
         </Route>
         <Route path="/login">
           <LoginPage />
+        </Route>
+        <Route path="/results">
+          {this.state.results ? (
+            <Results data={this.state.results} setData={() => this.setData()} />
+          ) : (
+            <Redirect to="/home" />
+          )}
         </Route>
         <Route path="/">
           <Redirect to="/register" />

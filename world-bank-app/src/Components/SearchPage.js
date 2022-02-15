@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Form } from "react-bootstrap";
 import Network from "./Network";
+import { Link } from "react-router-dom";
 
 class SearchPage extends React.Component {
   constructor() {
@@ -42,7 +43,8 @@ class SearchPage extends React.Component {
   render() {
     return (
       <main>
-        <div>
+        <header className="main-header"></header>
+        <div className="search-section">
           <Form onSubmit={this.handleSubmit}>
             <Row>
               <Form.Group className="mb-3" id="form-country-search" as={Col}>
@@ -91,10 +93,11 @@ class SearchPage extends React.Component {
                 />
               </Form.Group>
             </Row>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
+            <Link to="/results">
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Link>
           </Form>
         </div>
       </main>

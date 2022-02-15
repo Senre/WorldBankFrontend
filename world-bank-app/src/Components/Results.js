@@ -7,6 +7,10 @@ class Results extends React.Component {
       data: this.props.data,
     };
   }
+
+  render() {
+    return <p>hello</p>;
+  }
 }
 
 export default Results;
