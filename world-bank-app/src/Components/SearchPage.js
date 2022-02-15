@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Col, Row, Form } from "react-bootstrap";
 import Network from "./Network";
 import { Link } from "react-router-dom";
+import { Typeahead } from "react-bootstrap-typeahead";
 
 class SearchPage extends React.Component {
   constructor() {
