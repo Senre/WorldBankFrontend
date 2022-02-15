@@ -1,11 +1,11 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Route, Redirect, Switch } from "react-router-dom";
-import Register from "./Register";
+import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
 import Results from "./Components/Results";
 import SearchPage from "./Components/SearchPage";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 class App extends React.Component {
   constructor() {
@@ -13,6 +13,7 @@ class App extends React.Component {
     this.state = {
       results: [],
       isLoggedIn: false,
+      user: null,
     };
   }
 
@@ -20,6 +21,10 @@ class App extends React.Component {
     console.log("changed");
     this.setState({ results: data ? [...data] : [] });
   };
+
+  logIn(email) {
+    this.setState({ loggedIn: true, user: email });
+  }
 
   render() {
     return (
@@ -32,7 +37,7 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/register">
-          <Register />
+          <Register logIn={(email) => this.LogIn(email)} />
         </Route>
         <Route path="/login" component={LoginPage}>
           <LoginPage />

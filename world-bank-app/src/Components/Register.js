@@ -1,9 +1,9 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import invalidChars from "./invalidChars";
+import invalidChars from "../invalidChars";
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
+import { Switch, Link } from "react-router-dom";
 
 class Register extends React.Component {
   constructor(props) {
@@ -14,6 +14,9 @@ class Register extends React.Component {
       confirmPasswordInput: "",
       passwordMatch: false,
       invalidChars: invalidChars,
+      validRegister: true,
+      success: false,
+      error: false,
     };
 
     this.handleEmailInput = this.handleEmailInput.bind(this);
@@ -23,13 +26,40 @@ class Register extends React.Component {
     this.handleSubmit = this.handleSubmit(this);
   }
 
+  async registerUser(email, password) {
+    const endpoint = "http://localhost:8080/register";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      if (response.status === 200) {
+        this.handleLogIn();
+        this.redirect();
+      } else if (response.status >= 400 && response.status < 600) {
+        throw new Error("Bad response from server.");
+      } else {
+        this.setState({ success: false, error: response.error });
+      }
+    } catch (e) {
+      this.setState({ success: false, error: e.toString() });
+    }
+  }
+
   isEmailValid(email) {
     if (email.includes(this.state.invalidChars)) {
       return false;
     } else if (email.length > 30) {
       return false;
     } else if (!email) {
-      return true;
+      return false;
     } else {
       return true;
     }
@@ -48,21 +78,38 @@ class Register extends React.Component {
   }
 
   doPasswordsMatch(password, confirmedPassword) {
-    if (password !== confirmedPassword) {
+    if (password === confirmedPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isAccountValid() {
+    if (
+      this.isEmailValid(this.state.emailInput) &&
+      this.isPasswordValid(this.state.passwordInput) &&
+      this.doPasswordsMatch(
+        this.state.passwordInput,
+        this.state.confirmPasswordInput
+      )
+    ) {
+      return true;
+    } else {
       return false;
     }
   }
 
   getWarning(input) {
-    return <Alert variant="danger">This {input} is not valid</Alert>;
+    return <Alert variant="danger">This {input} is not valid.</Alert>;
   }
 
   getPass(input) {
-    return <Alert variant="success">This {input} is fine.</Alert>;
+    return <Alert variant="success">This {input} is valid.</Alert>;
   }
 
   handleEmailInput(e) {
-    this.setState({ usernameInput: e.target.value });
+    this.setState({ emailInput: e.target.value });
   }
 
   handlePasswordInput(e) {
@@ -74,7 +121,19 @@ class Register extends React.Component {
   }
 
   handleSubmit(e) {
-    // this.props.registerUser(this.state.emailInput, this.state.passwordInput);
+    if (this.isAccountValid) {
+      this.registerUser(this.state.emailInput, this.state.passwordInput);
+    } else {
+      this.setState({ validRegister: false });
+    }
+  }
+
+  handleLogIn() {
+    this.props.logIn(this.state.emailInput);
+  }
+
+  redirect() {
+    <Switch></Switch>;
   }
 
   getRegister() {
@@ -114,7 +173,7 @@ class Register extends React.Component {
         <Form.Group className="mb-3" controlId="formConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            type="confirm-password"
+            type="password"
             placeholder="Password"
             value={this.state.confirmPasswordInput}
             onChange={(e) => this.handleConfirmPasswordInput(e)}
@@ -125,15 +184,15 @@ class Register extends React.Component {
           this.state.passwordInput,
           this.state.confirmPasswordInput
         ) ? (
-          <Alert variant="success">Passwords </Alert>
+          <Alert variant="success">Passwords match!</Alert>
         ) : (
-          <Alert variant="danger"> Passwords do not match</Alert>
+          <Alert variant="danger"> Passwords do not match.</Alert>
         )}
 
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
             type="checkbox"
-            label="By clicking register below, you agree to the Terms and Conditions."
+            label="By ticking this box, you agree that you have read the Terms and Conditions."
           />
         </Form.Group>
         <Button
@@ -152,15 +211,17 @@ class Register extends React.Component {
       </Form>
     );
   }
+
   render() {
     return (
       <div>
         {this.getRegister()}
-        <div>
-          {this.isPasswordValid(this.state.passwordInput)
-            ? this.getPass()
-            : this.getWarning()}
-        </div>
+        {this.state.validRegister ? null : this.getWarning("account")}
+        {this.state.error ? (
+          <div class="alert alert-danger" role="alert">
+            Oops! Something went wrong. Error: "{this.state.error}".
+          </div>
+        ) : null}
       </div>
     );
   }
