@@ -19,14 +19,14 @@ class SearchPage extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { country, indicator, startYear, endYear } = this.state;
-    const response = await this.network.fetchData(
+    const response = await this.network.fetchCountryData(
       country,
       indicator,
       startYear,
       endYear
     );
-
-    console.log(response);
+    this.props.setData(response);
+    console.log("response is", response);
   };
 
   handleChange = (e) => {
@@ -40,66 +40,81 @@ class SearchPage extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  renderSearchForm = () => {
+    return (
+      <div className="search-section">
+        <Form onSubmit={this.handleSubmit}>
+          <Row>
+            <Form.Group className="mb-3" id="form-country-search" as={Col}>
+              <Form.Control
+                type="text"
+                placeholder="Enter a Country name..."
+                id="country"
+                value={this.state.country}
+                onChange={this.handleChange}
+                size="lg"
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" as={Col}>
+              <Form.Control
+                type="text"
+                placeholder="Enter an Indicator..."
+                id="indicator"
+                value={this.state.indicator}
+                onChange={this.handleChange}
+                size="lg"
+              />
+              <Form.Text>Leave blank to include all.</Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-3" as={Col}>
+              <Form.Control
+                placeholder="Start Year"
+                aria-label="Start Year"
+                id="startYear"
+                value={this.state.startYear}
+                onChange={this.handleChange}
+                type="number"
+                size="lg"
+              />
+              <Form.Text>From...</Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-3" as={Col}>
+              <Form.Control
+                placeholder="End Year"
+                aria-label="End Year"
+                id="endYear"
+                value={this.state.endYear}
+                onChange={this.handleChange}
+                type="number"
+                size="lg"
+              />
+              <Form.Text>To...</Form.Text>
+            </Form.Group>
+          </Row>
+
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </div>
+    );
+  };
+
   render() {
     return (
       <main>
-        <header className="main-header"></header>
-        <div className="search-section">
-          <Form onSubmit={this.handleSubmit}>
-            <Row>
-              <Form.Group className="mb-3" id="form-country-search" as={Col}>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter a Country name..."
-                  id="country"
-                  value={this.state.country}
-                  onChange={this.handleChange}
-                  size="lg"
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" as={Col}>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter an Indicator..."
-                  id="indicator"
-                  value={this.state.indicator}
-                  onChange={this.handleChange}
-                  size="lg"
-                />
-                <Form.Text>Leave blank to include all.</Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" as={Col}>
-                <Form.Control
-                  placeholder="Start Year"
-                  aria-label="Start Year"
-                  id="startYear"
-                  value={this.state.startYear}
-                  onChange={this.handleChange}
-                  type="number"
-                  size="lg"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" as={Col}>
-                <Form.Control
-                  placeholder="End Year"
-                  aria-label="End Year"
-                  id="endYear"
-                  value={this.state.endYear}
-                  onChange={this.handleChange}
-                  type="number"
-                  size="lg"
-                />
-              </Form.Group>
-            </Row>
-            <Link to="/results">
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Link>
-          </Form>
-        </div>
+        <header className="main-header">
+          <div className="header-buttons">
+            <div className="header-search-button">
+              <Link to="/home">
+                <Button variant="primary">Search</Button>
+              </Link>
+            </div>
+          </div>
+        </header>
+        {this.renderSearchForm()}
       </main>
     );
   }
