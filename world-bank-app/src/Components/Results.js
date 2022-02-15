@@ -18,14 +18,33 @@ class Results extends React.Component {
     };
   }
 
-  renderLineChart = () => {
-    const { data } = this.state;
-    let altData = data.map((item) => {
-      item.value = Number(item.value);
-      return item;
+  sortIncomingData = (data) => {
+    let set = -1;
+    let sortedData = [];
+    let checkYear = "";
+    data.forEach((element) => {
+      if (checkYear !== element.indicatorname) {
+        set++;
+        sortedData.push([]);
+      }
+
+      sortedData[set].push(element);
+      checkYear = element.indicatorname;
     });
 
-    if (altData.length > 2) {
+    sortedData = sortedData.map((set) => {
+      return set.sort((a, b) => (a.year < b.year ? -1 : 1));
+    });
+
+    return sortedData;
+  };
+
+  renderLineChart = (data) => {
+    if (data.length > 2) {
+      let altData = data.map((item) => {
+        item.value = Number(item.value);
+        return item;
+      });
       return (
         <LineChart
           width={600}
@@ -40,7 +59,7 @@ class Results extends React.Component {
           <Tooltip />
         </LineChart>
       );
-    } else if (altData.length === 1) {
+    } else if (data.length === 1) {
       return (
         <h3>
           {data[0].indicatorname} for {data[0].countryname} was {data[0].value}{" "}
@@ -48,6 +67,19 @@ class Results extends React.Component {
         </h3>
       );
     }
+  };
+
+  renderIncomingData = () => {
+    const { data } = this.state;
+    const sortedData = this.sortIncomingData(data);
+
+    return sortedData.map((set, i) => {
+      return (
+        <div key={i} className="rendered-data">
+          {this.renderLineChart(set)}
+        </div>
+      );
+    });
   };
 
   render() {
@@ -64,7 +96,7 @@ class Results extends React.Component {
             </div>
           </div>
         </header>
-        <div className="results-content">{this.renderLineChart()}</div>
+        <div className="results-content">{this.renderIncomingData()}</div>
       </main>
     );
   }
