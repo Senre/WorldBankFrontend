@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state = {
       results: [],
       user: null,
-      loggedIn: false,
+      isLoggedIn: false,
     };
   }
 
@@ -34,7 +34,7 @@ class App extends React.Component {
         <Route path="/register">
           <Register logIn={(email) => this.LogIn(email)} />
         </Route>
-        <Route path="/login">
+        <Route path="/login" component={LoginPage}>
           <LoginPage />
         </Route>
         <Route path="/results">
@@ -45,7 +45,11 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/">
-          <Redirect to="/register" />
+          {this.state.isLoggedIn ? (
+            <Redirect to="/home" />
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
       </Switch>
     );
