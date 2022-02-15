@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import invalidChars from "./invalidChars";
 import Alert from "react-bootstrap/Alert";
+import { Link } from "react-router-dom";
 
 class Register extends React.Component {
   constructor(props) {
@@ -143,8 +144,10 @@ class Register extends React.Component {
           Register
         </Button>
         <Form.Group className="mb-3" controlId="formBasicButton">
-          <Form.Text className="text-muted">Already have an account?</Form.Text>
-          <Button variant="secondary">Login</Button>
+          <Form.Text className="text">Already have an account? </Form.Text>
+          <Link to="/login">
+            <Button variant="secondary">Login</Button>
+          </Link>
         </Form.Group>
       </Form>
     );
