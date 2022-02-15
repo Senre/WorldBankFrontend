@@ -32,9 +32,18 @@ class SearchPage extends React.Component {
     console.log("response is", response);
   };
 
-  activateCompare = () => {
+  getIndicatorNames = async () => {
+    const response = await this.network.fetchIndicatorNames();
+    const indicators = response.rows.map((entry) => {
+      return entry.indicatorname;
+    });
+    console.log(indicators);
+  };
+
+  activateCompare = async () => {
     const { compare } = this.state;
     this.setState({ compare: !compare });
+    this.getIndicatorNames();
   };
 
   handleChange = (e) => {

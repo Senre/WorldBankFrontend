@@ -16,4 +16,14 @@ export default class Network {
 
     return await response.json();
   };
+
+  fetchIndicatorNames = async () => {
+    const response = await fetch("http://localhost:8080/indicators", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  };
 }
