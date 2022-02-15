@@ -5,7 +5,6 @@ import Register from "./Register";
 import LoginPage from "./Components/LoginPage";
 import { Route, Redirect, Switch } from "react-router-dom";
 import SearchPage from "./Components/SearchPage";
-import Register from "./Register";
 
 class App extends React.Component {
   render() {

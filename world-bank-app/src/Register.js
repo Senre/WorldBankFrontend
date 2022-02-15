@@ -49,15 +49,17 @@ export default class Register extends React.Component {
   doPasswordsMatch(password, confirmedPassword) {
     if (password !== confirmedPassword) {
       return false;
+    } else {
+      return true;
     }
   }
 
   getWarning(input) {
-    return <Alert variant="danger">This {input} is not valid</Alert>;
+    return <Alert variant="danger">This {input} is not valid.</Alert>;
   }
 
   getPass(input) {
-    return <Alert variant="success">This {input} is fine.</Alert>;
+    return <Alert variant="success">This {input} is valid.</Alert>;
   }
 
   handleEmailInput(e) {
@@ -73,7 +75,13 @@ export default class Register extends React.Component {
   }
 
   handleSubmit(e) {
-    // this.props.registerUser(this.state.emailInput, this.state.passwordInput);
+    this.props.registerUser(this.state.emailInput, this.state.passwordInput);
+  }
+
+  // callback prop to log user in
+  // check
+  handleLogIn() {
+    this.props.logIn(this.state.usernameInput);
   }
 
   getRegister() {
@@ -145,15 +153,18 @@ export default class Register extends React.Component {
       </Form>
     );
   }
+
+  getLogin() {
+    return <div></div>;
+  }
+
+  redirect() {}
+
   render() {
     return (
       <div>
         {this.getRegister()}
-        <div>
-          {this.isPasswordValid(this.state.passwordInput)
-            ? this.getPass()
-            : this.getWarning()}
-        </div>
+        <div></div>
       </div>
     );
   }
