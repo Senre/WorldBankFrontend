@@ -1,4 +1,5 @@
 import React from "react";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
 
 class Results extends React.Component {
   constructor(props) {
@@ -9,7 +10,12 @@ class Results extends React.Component {
   }
 
   render() {
-    return <p>hello</p>;
+    return (
+      <main>
+        <header className="main-header"></header>
+        <div className="results-content"></div>
+      </main>
+    );
   }
 }
 
