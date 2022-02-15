@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
     e.preventDefault();
     const email = this.state.emailInput;
     const password = this.state.passwordInput;
-    const response = displayUser(email, password);
+    //const response = displayUser(email, password);
     // await this.props.setLogin(response);
     // for when we have a part that shows logged in people
     this.setState({ emailInput: "", passwordInput: "" });
