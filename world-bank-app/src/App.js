@@ -32,7 +32,7 @@ class App extends React.Component {
           <LoginPage />
         </Route>
         <Route path="/results">
-          {this.state.results ? (
+          {this.state.results.length > 0 ? (
             <Results data={this.state.results} setData={() => this.setData()} />
           ) : (
             <Redirect to="/home" />
