@@ -46,18 +46,26 @@ class Results extends React.Component {
         return item;
       });
       return (
-        <LineChart
-          width={600}
-          height={300}
-          data={altData}
-          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-        >
-          <Line connectNulls type="monotone" dataKey="value" stroke="#8884d8" />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip />
-        </LineChart>
+        <div className="graph-container">
+          <h5 className="graph-title">{altData[0].indicatorname}</h5>
+          <LineChart
+            width={600}
+            height={300}
+            data={altData}
+            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+          >
+            <Line
+              connectNulls
+              type="monotone"
+              dataKey="value"
+              stroke="#8884d8"
+            />
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <XAxis dataKey="year" />
+            <YAxis />
+            <Tooltip />
+          </LineChart>
+        </div>
       );
     } else if (data.length === 1) {
       return (
