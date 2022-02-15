@@ -2,6 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Form } from "react-bootstrap";
 import Network from "./Network";
+import { Link } from "react-router-dom";
 
 class SearchPage extends React.Component {
   constructor() {
@@ -39,22 +40,11 @@ class SearchPage extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  //   getYearOptions = () => {
-  //     let years = Array(2016 - 1960).fill(0);
-
-  //     return years.map((element, i) => {
-  //       return (
-  //         <option key={i} value={1960 + i}>
-  //           {1960 + i}
-  //         </option>
-  //       );
-  //     });
-  //   };
-
   render() {
     return (
       <main>
-        <div>
+        <header className="main-header"></header>
+        <div className="search-section">
           <Form onSubmit={this.handleSubmit}>
             <Row>
               <Form.Group className="mb-3" id="form-country-search" as={Col}>
@@ -103,10 +93,11 @@ class SearchPage extends React.Component {
                 />
               </Form.Group>
             </Row>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
+            <Link to="/results">
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Link>
           </Form>
         </div>
       </main>
