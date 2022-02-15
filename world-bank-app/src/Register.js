@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import invalidChars from "./invalidChars";
 import Alert from "react-bootstrap/Alert";
 
-export default class Register extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -142,6 +142,10 @@ export default class Register extends React.Component {
         >
           Register
         </Button>
+        <Form.Group className="mb-3" controlId="formBasicButton">
+          <Form.Text className="text-muted">Already have an account?</Form.Text>
+          <Button variant="secondary">Login</Button>
+        </Form.Group>
       </Form>
     );
   }
@@ -158,3 +162,5 @@ export default class Register extends React.Component {
     );
   }
 }
+
+export default Register;

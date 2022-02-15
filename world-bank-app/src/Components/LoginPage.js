@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
     e.preventDefault();
     const email = this.state.emailInput;
     const password = this.state.passwordInput;
-    const response = displayUser(email, password);
+    // const response = displayUser(email, password);
     // await this.props.setLogin(response);
     // for when we have a part that shows logged in people
     this.setState({ emailInput: "", passwordInput: "" });
@@ -68,6 +68,10 @@ class LoginPage extends React.Component {
           <Button variant="primary" type="submit">
             Submit
           </Button>
+          <Form.Group className="mb-3" controlId="formBasicButton">
+            <Form.Text className="text-muted">Don't have an account?</Form.Text>
+            <Button variant="secondary">Create an Account</Button>
+          </Form.Group>
         </Form>
       </div>
     );
