@@ -8,33 +8,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailInput: "",
+      usernameInput: "",
       passwordInput: "",
     };
-  }
-
-  async postUser(email, password) {
-    const endpoint = "http://localhost:8080/";
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-    const json = response.json();
-    return json;
   }
 
   render() {
     return (
       <div className="App">
-        <Register
-          registerUser={(email, password) => this.postUser(email, password)}
-        />
+        <Register />
         <LoginPage />
       </div>
     );
