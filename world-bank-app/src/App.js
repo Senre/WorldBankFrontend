@@ -20,9 +20,8 @@ class App extends React.Component {
     this.state = {
       results: [],
       compareResults: [],
-
       isLoggedIn: cookies.get("sessionId") ? true : false,
-      user: null,
+      username: null,
     };
   }
 
@@ -34,7 +33,7 @@ class App extends React.Component {
     });
   };
 
-  logIn = () => {
+  logIn = (username) => {
     const { cookies } = this.props;
     console.log("logged");
     const currentState = this.state.isLoggedIn;
@@ -43,9 +42,11 @@ class App extends React.Component {
       cookies.remove("sessionId");
       cookies.remove("user_id");
       cookies.remove("email");
+      this.setState({ isLoggedIn: !currentState, username: "" });
+    } else {
+      this.setState({ loggedIn: true, user: username });
     }
     console.log(cookies.getAll());
-    this.setState({ isLoggedIn: !currentState });
   };
 
   render() {
@@ -62,7 +63,8 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/register">
-          <Register logIn={(email) => this.LogIn(email)} />
+          <Register logIn={(username) => this.LogIn(username)} />
+          {this.state.isLoggedIn ? <Redirect to="home" /> : null}
         </Route>
         <Route path="/login" component={LoginPage}>
           {this.state.isLoggedIn ? (
