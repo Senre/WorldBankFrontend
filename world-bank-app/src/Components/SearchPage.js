@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
+import Dropdown from "react-bootstrap/Dropdown";
 
 class SearchPage extends React.Component {
   static propTypes = {
@@ -210,6 +211,11 @@ class SearchPage extends React.Component {
     );
   };
 
+  getUserSearches = async () => {
+    const { cookies } = this.props;
+    const user_id = cookies.get("user_id");
+  };
+
   render() {
     return (
       <main>
@@ -224,6 +230,13 @@ class SearchPage extends React.Component {
                   Log Out
                 </Button>
               </Link>
+              <Dropdown>
+                <Dropdown.Toggle id="history-dropdown" variant="secondary">
+                  History
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu></Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </header>
