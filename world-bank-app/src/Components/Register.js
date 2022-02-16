@@ -4,6 +4,9 @@ import Button from "react-bootstrap/Button";
 import invalidChars from "../invalidChars";
 import Alert from "react-bootstrap/Alert";
 import { Switch, Link } from "react-router-dom";
+import Network from "./Network";
+
+const network = new Network();
 
 class Register extends React.Component {
   constructor(props) {
@@ -24,21 +27,9 @@ class Register extends React.Component {
     this.handleConfirmPasswordInput =
       this.handleConfirmPasswordInput.bind(this);
   }
-
-  async registerUser(email, password) {
-    const endpoint = "http://localhost:8080/register";
-
+  async registerUser(username, password) {
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await network.registerUser(username, password);
       if (response.status === 200) {
         this.handleLogIn();
         this.redirect();
