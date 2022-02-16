@@ -37,7 +37,6 @@ class SearchPage extends React.Component {
     const indicators = response.rows.map((entry) => {
       return entry.indicatorname;
     });
-    console.log(indicators);
   };
 
   activateCompare = async () => {
@@ -50,29 +49,28 @@ class SearchPage extends React.Component {
     if (e.target.id === "startYear" || e.target.id === "endYear") {
       let newYear = e.target.value > 2015 ? 2015 : e.target.value;
       newYear = newYear < 1960 ? 1960 : newYear;
-      console.log(newYear);
 
       this.setState({ [e.target.id]: newYear });
     }
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  comparedCountryForm = () => {
-    return (
-      <Row>
-        <Form.Group className="mb-3" id="form-country-search" as={Col}>
-          <Form.Control
-            type="text"
-            placeholder="Enter a Country name..."
-            id="countryCompare"
-            value={this.state.countryCompare}
-            onChange={this.handleChange}
-            size="lg"
-          />
-        </Form.Group>
-      </Row>
-    );
-  };
+  // comparedCountryForm = () => {
+  //   return (
+  //     <Row>
+  //       <Form.Group className="mb-3" id="form-country-search" as={Col}>
+  //         <Form.Control
+  //           type="text"
+  //           placeholder="Enter a Country name..."
+  //           id="countryCompare"
+  //           value={this.state.countryCompare}
+  //           onChange={this.handleChange}
+  //           size="lg"
+  //         />
+  //       </Form.Group>
+  //     </Row>
+  //   );
+  // };
 
   renderSearchForm = () => {
     return (
@@ -88,14 +86,14 @@ class SearchPage extends React.Component {
                 onChange={this.handleChange}
                 size="lg"
               />
-              {this.state.compare && this.comparedCountryForm()}
-              <Button
+              {/* {this.state.compare && this.comparedCountryForm()} */}
+              {/* <Button
                 size="sm"
                 variant="secondary"
                 onClick={this.activateCompare}
               >
                 {this.state.compare ? "-" : "+"}
-              </Button>
+              </Button> */}
             </Form.Group>
 
             <Form.Group className="mb-3" as={Col}>
