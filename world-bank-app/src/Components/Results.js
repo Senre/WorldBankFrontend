@@ -68,7 +68,7 @@ class Results extends React.Component {
       <main>
         <header className="main-header">
           <div className="header-buttons">
-            <div className="header-search-button">
+            <div className="header-search-button" id="results">
               <Link to="/home">
                 <Button variant="primary" onClick={() => this.props.setData()}>
                   Search

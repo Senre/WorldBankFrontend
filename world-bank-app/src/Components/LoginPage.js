@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
     const { email, password } = this.state;
     if (email && password) {
       const response = await this.network.loggingIn(email, password);
-
+      console.log(response);
       if (response.ok) {
         this.props.loggingIn();
       } else {
@@ -57,6 +57,7 @@ class LoginPage extends React.Component {
               type="email"
               placeholder="Enter email"
               value={this.state.email}
+              id="email"
               onChange={(e) => this.handleChange(e)}
             />
             <Form.Text className="text-muted">
@@ -70,6 +71,7 @@ class LoginPage extends React.Component {
               type="password"
               placeholder="Password"
               value={this.state.password}
+              id="password"
               onChange={(e) => this.handleChange(e)}
             />
           </Form.Group>

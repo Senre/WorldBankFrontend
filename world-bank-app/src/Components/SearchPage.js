@@ -4,10 +4,17 @@ import { Col, Row, Form } from "react-bootstrap";
 import Network from "./Network";
 import { Link } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 
 class SearchPage extends React.Component {
-  constructor() {
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
     this.state = {
       country: "",
       countryCompare: "",
@@ -16,6 +23,8 @@ class SearchPage extends React.Component {
       endYear: 2015,
       compare: false,
       indicatorList: [],
+      currentUser: Number(cookies.get("user_id")),
+      username: cookies.get("email"),
     };
     this.network = new Network();
   }
@@ -175,4 +184,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default withCookies(SearchPage);
