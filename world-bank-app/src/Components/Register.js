@@ -119,7 +119,7 @@ class Register extends React.Component {
     this.setState({ confirmPasswordInput: e.target.value });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit(e) {
     e.preventDefault();
     if (this.isAccountValid) {
       this.registerUser(this.state.emailInput, this.state.passwordInput);

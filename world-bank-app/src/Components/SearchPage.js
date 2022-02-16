@@ -15,6 +15,7 @@ class SearchPage extends React.Component {
       startYear: 1960,
       endYear: 2015,
       compare: false,
+      indicatorList: [],
     };
     this.network = new Network();
   }
@@ -32,12 +33,18 @@ class SearchPage extends React.Component {
     console.log("response is", response);
   };
 
+  componentDidMount = async () => {
+    const indicators = await this.getIndicatorNames();
+    this.setState({ indicatorList: indicators });
+  };
+
   getIndicatorNames = async () => {
     const response = await this.network.fetchIndicatorNames();
     const indicators = response.rows.map((entry) => {
       return entry.indicatorname;
     });
     console.log(indicators);
+    return indicators;
   };
 
   activateCompare = async () => {
@@ -50,29 +57,28 @@ class SearchPage extends React.Component {
     if (e.target.id === "startYear" || e.target.id === "endYear") {
       let newYear = e.target.value > 2015 ? 2015 : e.target.value;
       newYear = newYear < 1960 ? 1960 : newYear;
-      console.log(newYear);
 
       this.setState({ [e.target.id]: newYear });
     }
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  comparedCountryForm = () => {
-    return (
-      <Row>
-        <Form.Group className="mb-3" id="form-country-search" as={Col}>
-          <Form.Control
-            type="text"
-            placeholder="Enter a Country name..."
-            id="countryCompare"
-            value={this.state.countryCompare}
-            onChange={this.handleChange}
-            size="lg"
-          />
-        </Form.Group>
-      </Row>
-    );
-  };
+  // comparedCountryForm = () => {
+  //   return (
+  //     <Row>
+  //       <Form.Group className="mb-3" id="form-country-search" as={Col}>
+  //         <Form.Control
+  //           type="text"
+  //           placeholder="Enter a Country name..."
+  //           id="countryCompare"
+  //           value={this.state.countryCompare}
+  //           onChange={this.handleChange}
+  //           size="lg"
+  //         />
+  //       </Form.Group>
+  //     </Row>
+  //   );
+  // };
 
   renderSearchForm = () => {
     return (
@@ -88,25 +94,32 @@ class SearchPage extends React.Component {
                 onChange={this.handleChange}
                 size="lg"
               />
-              {this.state.compare && this.comparedCountryForm()}
-              <Button
+              {/* {this.state.compare && this.comparedCountryForm()} */}
+              {/* <Button
                 size="sm"
                 variant="secondary"
                 onClick={this.activateCompare}
               >
                 {this.state.compare ? "-" : "+"}
-              </Button>
+              </Button> */}
             </Form.Group>
 
             <Form.Group className="mb-3" as={Col}>
-              <Form.Control
+              <Typeahead
+                onChange={(selected) => this.setState({ indicator: selected })}
+                placeholder="Enter an Indicator..."
+                size="lg"
+                options={this.state.indicatorList}
+                id="indicator"
+              />
+              {/* <Form.Control
                 type="text"
                 placeholder="Enter an Indicator..."
                 id="indicator"
                 value={this.state.indicator}
                 onChange={this.handleChange}
                 size="lg"
-              />
+              /> */}
               <Form.Text>Leave blank to include all.</Form.Text>
             </Form.Group>
 
