@@ -85,7 +85,6 @@ class SearchPage extends React.Component {
     const countries = response.rows.map((entry) => {
       return entry.shortname;
     });
-    countries.sort();
     return countries;
   };
 
