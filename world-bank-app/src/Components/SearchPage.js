@@ -15,6 +15,7 @@ class SearchPage extends React.Component {
       startYear: 1960,
       endYear: 2015,
       compare: false,
+      indicatorList: [],
     };
     this.network = new Network();
   }
@@ -32,11 +33,18 @@ class SearchPage extends React.Component {
     console.log("response is", response);
   };
 
+  componentDidMount = async () => {
+    const indicators = await this.getIndicatorNames();
+    this.setState({ indicatorList: indicators });
+  };
+
   getIndicatorNames = async () => {
     const response = await this.network.fetchIndicatorNames();
     const indicators = response.rows.map((entry) => {
       return entry.indicatorname;
     });
+    console.log(indicators);
+    return indicators;
   };
 
   activateCompare = async () => {
@@ -97,14 +105,21 @@ class SearchPage extends React.Component {
             </Form.Group>
 
             <Form.Group className="mb-3" as={Col}>
-              <Form.Control
+              <Typeahead
+                onChange={(selected) => this.setState({ indicator: selected })}
+                placeholder="Enter an Indicator..."
+                size="lg"
+                options={this.state.indicatorList}
+                id="indicator"
+              />
+              {/* <Form.Control
                 type="text"
                 placeholder="Enter an Indicator..."
                 id="indicator"
                 value={this.state.indicator}
                 onChange={this.handleChange}
                 size="lg"
-              />
+              /> */}
               <Form.Text>Leave blank to include all.</Form.Text>
             </Form.Group>
 
