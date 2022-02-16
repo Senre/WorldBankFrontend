@@ -1,4 +1,21 @@
 export default class Network {
+  async registerUser(username, password) {
+    const endpoint = "http://localhost:8080/register";
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+
+    const json = await response.json();
+    return json;
+  }
+
   fetchCountryData = async (country, indicator, startYear, endYear) => {
     const response = await fetch(
       `http://localhost:8080/${encodeURIComponent(
@@ -43,7 +60,7 @@ export default class Network {
       password,
     };
 
-    const response = await fetch("http://localhost:8080/sessions", {
+    const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       credentials: "include",
       headers: {
