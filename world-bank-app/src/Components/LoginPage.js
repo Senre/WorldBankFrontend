@@ -57,6 +57,7 @@ class LoginPage extends React.Component {
               type="email"
               placeholder="Enter email"
               value={this.state.email}
+              id="email"
               onChange={(e) => this.handleChange(e)}
             />
             <Form.Text className="text-muted">
@@ -70,6 +71,7 @@ class LoginPage extends React.Component {
               type="password"
               placeholder="Password"
               value={this.state.password}
+              id="password"
               onChange={(e) => this.handleChange(e)}
             />
           </Form.Group>
