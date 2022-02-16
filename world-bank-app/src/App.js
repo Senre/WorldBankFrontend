@@ -41,10 +41,6 @@ class App extends React.Component {
     this.setState({ isLoggedIn: !currentState });
   };
 
-  searchPage = () => {
-    return <SearchPage logIn={() => this.logIn()}></SearchPage>;
-  };
-
   render() {
     return (
       <Switch>
