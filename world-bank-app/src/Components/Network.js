@@ -50,7 +50,7 @@ export default class Network {
       password,
     };
 
-    const response = await fetch("http://localhost:8080/sessions", {
+    const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       credentials: "include",
       headers: {

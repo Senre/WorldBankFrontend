@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
     const { email, password } = this.state;
     if (email && password) {
       const response = await this.network.loggingIn(email, password);
-
+      console.log(response);
       if (response.ok) {
         this.props.loggingIn();
       } else {
