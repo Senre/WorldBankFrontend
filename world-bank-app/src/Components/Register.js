@@ -27,16 +27,17 @@ class Register extends React.Component {
     this.handleConfirmPasswordInput =
       this.handleConfirmPasswordInput.bind(this);
   }
+
   async registerUser(username, password) {
     try {
-      const response = await network.registerUser(username, password);
-      if (response.status === 200) {
+      const json = await network.registerUser(username, password);
+      if (json.status === 200) {
         this.handleLogIn();
         this.redirect();
-      } else if (response.status >= 400 && response.status < 600) {
+      } else if (json.status >= 400 && json.status < 600) {
         throw new Error("Bad response from server.");
       } else {
-        this.setState({ success: false, error: response.error });
+        this.setState({ success: false, error: json.error });
       }
     } catch (e) {
       this.setState({ success: false, error: e.toString() });
