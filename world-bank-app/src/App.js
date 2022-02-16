@@ -20,6 +20,7 @@ class App extends React.Component {
     this.state = {
       results: [],
       compareResults: [],
+
       isLoggedIn: cookies.get("sessionId") ? true : false,
       user: null,
     };
