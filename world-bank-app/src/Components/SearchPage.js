@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
+import Dropdown from "react-bootstrap/Dropdown";
 
 class SearchPage extends React.Component {
   static propTypes = {
@@ -31,20 +32,70 @@ class SearchPage extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { country, indicator, startYear, endYear } = this.state;
-    const response = await this.network.fetchCountryData(
+    const { cookies } = this.props;
+    console.log(cookies.getAll());
+    const user_id = cookies.get("user_id");
+    const {
       country,
       indicator,
       startYear,
-      endYear
-    );
-    this.props.setData(response);
-    console.log("response is", response);
+      endYear,
+      compare,
+      countryCompare,
+      countriesList,
+    } = this.state;
+
+    if (
+      countriesList.includes(country[0]) &&
+      compare &&
+      countriesList.includes(countryCompare[0])
+    ) {
+      console.log("submitted");
+      const response = await this.network.fetchCountryData(
+        country,
+        indicator,
+        startYear,
+        endYear
+      );
+      const compareResponse = await this.network.fetchCountryData(
+        countryCompare,
+        indicator,
+        startYear,
+        endYear
+      );
+      console.log(compareResponse);
+      this.network.addUserSearch(
+        [country, countryCompare],
+        indicator,
+        startYear,
+        endYear,
+        user_id
+      );
+      this.props.setData(response, compareResponse);
+    } else if (countriesList.includes(country[0])) {
+      const response = await this.network.fetchCountryData(
+        country,
+        indicator,
+        startYear,
+        endYear
+      );
+      this.network.addUserSearch(
+        country,
+        indicator,
+        startYear,
+        endYear,
+        user_id
+      );
+      this.props.setData(response);
+    } else {
+      console.log("Invalid Country");
+    }
   };
 
   componentDidMount = async () => {
     const indicators = await this.getIndicatorNames();
-    this.setState({ indicatorList: indicators });
+    const countries = await this.getCountryNames();
+    this.setState({ indicatorList: indicators, countriesList: countries });
   };
 
   getIndicatorNames = async () => {
@@ -52,8 +103,15 @@ class SearchPage extends React.Component {
     const indicators = response.rows.map((entry) => {
       return entry.indicatorname;
     });
-    console.log(indicators);
     return indicators;
+  };
+
+  getCountryNames = async () => {
+    const response = await this.network.fetchCountryNames();
+    const countries = response.rows.map((entry) => {
+      return entry.shortname;
+    });
+    return countries;
   };
 
   activateCompare = async () => {
@@ -72,22 +130,21 @@ class SearchPage extends React.Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
-  // comparedCountryForm = () => {
-  //   return (
-  //     <Row>
-  //       <Form.Group className="mb-3" id="form-country-search" as={Col}>
-  //         <Form.Control
-  //           type="text"
-  //           placeholder="Enter a Country name..."
-  //           id="countryCompare"
-  //           value={this.state.countryCompare}
-  //           onChange={this.handleChange}
-  //           size="lg"
-  //         />
-  //       </Form.Group>
-  //     </Row>
-  //   );
-  // };
+  comparedCountryForm = () => {
+    return (
+      <Row>
+        <Form.Group className="mb-3" id="form-country-search" as={Col}>
+          <Typeahead
+            onChange={(selected) => this.setState({ countryCompare: selected })}
+            placeholder="Enter a Country..."
+            size="lg"
+            options={this.state.countriesList}
+            id="countryCompare"
+          />
+        </Form.Group>
+      </Row>
+    );
+  };
 
   renderSearchForm = () => {
     return (
@@ -95,22 +152,21 @@ class SearchPage extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Row>
             <Form.Group className="mb-3" id="form-country-search" as={Col}>
-              <Form.Control
-                type="text"
-                placeholder="Enter a Country name..."
-                id="country"
-                value={this.state.country}
-                onChange={this.handleChange}
+              <Typeahead
+                onChange={(selected) => this.setState({ country: selected })}
+                placeholder="Enter a Country..."
                 size="lg"
+                options={this.state.countriesList}
+                id="country"
               />
-              {/* {this.state.compare && this.comparedCountryForm()} */}
-              {/* <Button
+              {this.state.compare && this.comparedCountryForm()}
+              <Button
                 size="sm"
                 variant="secondary"
                 onClick={this.activateCompare}
               >
                 {this.state.compare ? "-" : "+"}
-              </Button> */}
+              </Button>
             </Form.Group>
 
             <Form.Group className="mb-3" as={Col}>
@@ -121,14 +177,6 @@ class SearchPage extends React.Component {
                 options={this.state.indicatorList}
                 id="indicator"
               />
-              {/* <Form.Control
-                type="text"
-                placeholder="Enter an Indicator..."
-                id="indicator"
-                value={this.state.indicator}
-                onChange={this.handleChange}
-                size="lg"
-              /> */}
               <Form.Text>Leave blank to include all.</Form.Text>
             </Form.Group>
 
@@ -166,6 +214,11 @@ class SearchPage extends React.Component {
     );
   };
 
+  getUserSearches = async () => {
+    const { cookies } = this.props;
+    const user_id = cookies.get("user_id");
+  };
+
   render() {
     return (
       <main>
@@ -175,6 +228,18 @@ class SearchPage extends React.Component {
               <Link to="/home">
                 <Button variant="primary">Search</Button>
               </Link>
+              <Link to="/login">
+                <Button variant="primary" onClick={() => this.props.logIn()}>
+                  Log Out
+                </Button>
+              </Link>
+              <Dropdown>
+                <Dropdown.Toggle id="history-dropdown" variant="secondary">
+                  History
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu></Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
         </header>
