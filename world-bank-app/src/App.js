@@ -6,13 +6,20 @@ import LoginPage from "./Components/LoginPage";
 import Results from "./Components/Results";
 import SearchPage from "./Components/SearchPage";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
     this.state = {
       results: [],
-      isLoggedIn: false,
+      isLoggedIn: cookies.get("sessionId") ? true : false,
       user: null,
     };
   }
@@ -22,9 +29,21 @@ class App extends React.Component {
     this.setState({ results: data ? [...data] : [] });
   };
 
-  logIn(email) {
-    this.setState({ loggedIn: true, user: email });
-  }
+  logIn = () => {
+    const { cookies } = this.props;
+
+    const currentState = this.state.isLoggedIn;
+    if (this.state.isLoggedIn) {
+      cookies.remove("sessionId");
+      cookies.remove("user_id");
+    }
+    console.log(cookies.getAll());
+    this.setState({ isLoggedIn: !currentState });
+  };
+
+  searchPage = () => {
+    return <SearchPage logIn={() => this.logIn()}></SearchPage>;
+  };
 
   render() {
     return (
@@ -61,4 +80,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withCookies(App);
