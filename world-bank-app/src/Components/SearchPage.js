@@ -24,6 +24,7 @@ class SearchPage extends React.Component {
       endYear: 2015,
       compare: false,
       indicatorList: [],
+      countriesList: [],
       currentUser: Number(cookies.get("user_id")),
       username: cookies.get("email"),
     };
