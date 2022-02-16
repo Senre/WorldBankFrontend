@@ -13,7 +13,6 @@ class SearchPage extends React.Component {
   };
   constructor(props) {
     super(props);
-    const { cookies } = props;
     this.state = {
       country: "",
       countryCompare: "",
