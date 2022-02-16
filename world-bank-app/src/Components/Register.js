@@ -9,7 +9,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailInput: "",
+      usernameInput: "",
       passwordInput: "",
       confirmPasswordInput: "",
       passwordMatch: false,
@@ -19,7 +19,7 @@ class Register extends React.Component {
       error: false,
     };
 
-    this.handleEmailInput = this.handleEmailInput.bind(this);
+    this.handleUsernameInput = this.handleUsernameInput.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
     this.handleConfirmPasswordInput =
       this.handleConfirmPasswordInput.bind(this);
@@ -52,12 +52,10 @@ class Register extends React.Component {
     }
   }
 
-  isEmailValid(email) {
-    if (email.includes(this.state.invalidChars)) {
+  isUsernameValid(username) {
+    if (username.includes(this.state.invalidChars)) {
       return false;
-    } else if (email.length > 30) {
-      return false;
-    } else if (!email) {
+    } else if (!username) {
       return false;
     } else {
       return true;
@@ -65,12 +63,10 @@ class Register extends React.Component {
   }
 
   isPasswordValid(password) {
-    if (password.length < 8) {
-      return false;
-    } else if (password.length > 25) {
+    if (password.length > 25) {
       return false;
     } else if (!password) {
-      return true;
+      return false;
     } else {
       return true;
     }
@@ -86,7 +82,7 @@ class Register extends React.Component {
 
   isAccountValid() {
     if (
-      this.isEmailValid(this.state.emailInput) &&
+      this.isUsernameValid(this.state.usernameInput) &&
       this.isPasswordValid(this.state.passwordInput) &&
       this.doPasswordsMatch(
         this.state.passwordInput,
@@ -107,8 +103,8 @@ class Register extends React.Component {
     return <Alert variant="success">This {input} is valid.</Alert>;
   }
 
-  handleEmailInput(e) {
-    this.setState({ emailInput: e.target.value });
+  handleUsernameInput(e) {
+    this.setState({ usernameInput: e.target.value });
   }
 
   handlePasswordInput(e) {
@@ -122,11 +118,12 @@ class Register extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (this.isAccountValid) {
-      this.registerUser(this.state.emailInput, this.state.passwordInput);
+      this.registerUser(this.state.usernameInput, this.state.passwordInput);
+      this.setState({ validRegister: true });
     } else {
       this.setState({ validRegister: false });
     }
-  };
+  }
 
   handleLogIn() {
     this.props.logIn(this.state.emailInput);
@@ -144,26 +141,35 @@ class Register extends React.Component {
           <Form.Control
             type="email"
             placeholder="Enter email"
-            value={this.state.emailInput}
-            onChange={(e) => this.handleEmailInput(e)}
+            required
+            value={this.state.usernameInput}
+            onChange={(e) => this.handleUsernameInput(e)}
           />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
 
-        {this.isEmailValid(this.state.emailInput)
-          ? this.getPass("email")
-          : this.getWarning("email")}
+        {this.isUsernameValid(this.state.usernameInput)
+          ? this.getPass("username")
+          : this.getWarning("username")}
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Enter password"
+            minlength="8"
+            maxLength="20"
+            required
             value={this.state.passwordInput}
             onChange={(e) => this.handlePasswordInput(e)}
           />
+          <Form.Text id="passwordHelpBlock" muted>
+            Your password must be 8-20 characters long, contain letters and
+            numbers, and must not contain spaces, special characters, or emoji.
+          </Form.Text>
         </Form.Group>
 
         {this.isPasswordValid(this.state.passwordInput)
@@ -174,7 +180,9 @@ class Register extends React.Component {
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder="Confirm password"
+            minLength="8"
+            required
             value={this.state.confirmPasswordInput}
             onChange={(e) => this.handleConfirmPasswordInput(e)}
           />
@@ -215,7 +223,7 @@ class Register extends React.Component {
         {this.state.validRegister ? null : this.getWarning("account")}
         {this.state.error ? (
           <div class="alert alert-danger" role="alert">
-            Oops! Something went wrong. Error: "{this.state.error}".
+            Oops! Something went wrong. "{this.state.error}".
           </div>
         ) : null}
       </div>
