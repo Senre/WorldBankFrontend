@@ -4,10 +4,16 @@ import { Col, Row, Form } from "react-bootstrap";
 import Network from "./Network";
 import { Link } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 
 class SearchPage extends React.Component {
-  constructor() {
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
     this.state = {
       country: "",
       countryCompare: "",
@@ -23,6 +29,9 @@ class SearchPage extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    const { cookies } = this.props;
+    console.log(cookies.getAll());
+    const user_id = cookies.get("user_id");
     const {
       country,
       indicator,
@@ -52,6 +61,13 @@ class SearchPage extends React.Component {
         endYear
       );
       console.log(compareResponse);
+      this.network.addUserSearch(
+        [country, countryCompare],
+        indicator,
+        startYear,
+        endYear,
+        user_id
+      );
       this.props.setData(response, compareResponse);
     } else if (countriesList.includes(country[0])) {
       const response = await this.network.fetchCountryData(
@@ -59,6 +75,13 @@ class SearchPage extends React.Component {
         indicator,
         startYear,
         endYear
+      );
+      this.network.addUserSearch(
+        country,
+        indicator,
+        startYear,
+        endYear,
+        user_id
       );
       this.props.setData(response);
     } else {
@@ -197,6 +220,11 @@ class SearchPage extends React.Component {
               <Link to="/home">
                 <Button variant="primary">Search</Button>
               </Link>
+              <Link to="/login">
+                <Button variant="primary" onClick={() => this.props.logIn()}>
+                  Log Out
+                </Button>
+              </Link>
             </div>
           </div>
         </header>
@@ -206,4 +234,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default withCookies(SearchPage);

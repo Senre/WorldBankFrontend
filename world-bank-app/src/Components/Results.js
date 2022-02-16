@@ -121,28 +121,6 @@ class Results extends React.Component {
           </div>
         );
       });
-
-      // if (sortedData.length >= sortedCompareData.length) {
-      //   return sortedCompareData.map((set, i) => {
-      //     return (
-      //       <div key={i} className="rendered-data">
-      //         {set[0].indicatorname === sortedData[i][0].indicatorname
-      //           ? this.renderComparison(set, sortedData[i])
-      //           : this.renderLineChart(set)}
-      //       </div>
-      //     );
-      //   });
-      // } else {
-      //   return sortedData.map((set, i) => {
-      //     return (
-      //       <div key={i} className="rendered-data">
-      //         {set[0].indicatorname === sortedCompareData[i][0].indicatorname
-      //           ? this.renderComparison(set, sortedCompareData[i])
-      //           : this.renderLineChart(set)}
-      //       </div>
-      //     );
-      //   });
-      // }
     } else {
       return sortedData.map((set, i) => {
         return (
@@ -164,6 +142,11 @@ class Results extends React.Component {
               <Link to="/home">
                 <Button variant="primary" onClick={() => this.props.setData()}>
                   Search
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button variant="primary" onClick={() => this.props.logIn()}>
+                  Log Out
                 </Button>
               </Link>
             </div>

@@ -43,7 +43,7 @@ class Graph extends React.Component {
               width={700}
               height={300}
               data={data}
-              margin={{ top: 5, right: 20, bottom: 5, left: 50 }}
+              margin={{ top: 5, right: 20, bottom: 5, left: 60 }}
             >
               <Line
                 connectNulls
@@ -74,7 +74,7 @@ class Graph extends React.Component {
               width={600}
               height={300}
               data={combinedData}
-              margin={{ top: 5, right: 20, bottom: 5, left: 50 }}
+              margin={{ top: 5, right: 20, bottom: 5, left: 60 }}
             >
               <Line
                 connectNulls

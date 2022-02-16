@@ -36,11 +36,13 @@ class App extends React.Component {
 
   logIn = () => {
     const { cookies } = this.props;
-
+    console.log("logged");
     const currentState = this.state.isLoggedIn;
     if (this.state.isLoggedIn) {
+      console.log("removed");
       cookies.remove("sessionId");
       cookies.remove("user_id");
+      cookies.remove("email");
     }
     console.log(cookies.getAll());
     this.setState({ isLoggedIn: !currentState });
@@ -57,6 +59,7 @@ class App extends React.Component {
           {this.state.results.length === 0 ? (
             <SearchPage
               setData={(data, compareData) => this.setData(data, compareData)}
+              logIn={() => this.logIn()}
             />
           ) : (
             <Redirect to="/results" />
@@ -80,6 +83,7 @@ class App extends React.Component {
               data={this.state.results}
               compareData={this.state.compareResults}
               setData={() => this.setData()}
+              logIn={() => this.logIn()}
             />
           )}
         </Route>

@@ -71,4 +71,24 @@ export default class Network {
 
     return response;
   };
+
+  addUserSearch = async (country, indicator, start_year, end_year, user_id) => {
+    const body = {
+      country,
+      indicator,
+      start_year,
+      end_year,
+    };
+
+    const response = await fetch(`http://localhost:8080/searches/${user_id}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    return response;
+  };
 }
