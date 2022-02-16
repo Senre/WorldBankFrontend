@@ -46,9 +46,9 @@ class App extends React.Component {
     this.setState({ isLoggedIn: !currentState });
   };
 
-  searchPage = () => {
-    return <SearchPage logIn={() => this.logIn()}></SearchPage>;
-  };
+  // searchPage = () => {
+  //   return <SearchPage logIn={() => this.logIn()}></SearchPage>;
+  // };
 
   render() {
     return (
@@ -66,7 +66,11 @@ class App extends React.Component {
           <Register logIn={(email) => this.LogIn(email)} />
         </Route>
         <Route path="/login" component={LoginPage}>
-          <LoginPage />
+          {this.state.isLoggedIn ? (
+            <Redirect to="/home" />
+          ) : (
+            <LoginPage logIn={() => this.logIn()} />
+          )}
         </Route>
         <Route path="/results">
           {this.state.results.length === 0 ? (

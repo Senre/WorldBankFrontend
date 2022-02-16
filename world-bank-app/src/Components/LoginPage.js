@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
       const response = await this.network.loggingIn(email, password);
       console.log(response);
       if (response.ok) {
-        this.props.loggingIn();
+        this.props.logIn();
       } else {
         console.log("Incorrect Email or Password");
       }
