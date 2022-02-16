@@ -44,7 +44,7 @@ class App extends React.Component {
       cookies.remove("email");
       this.setState({ isLoggedIn: !currentState, username: "" });
     } else {
-      this.setState({ loggedIn: true, user: username });
+      this.setState({ isLoggedIn: true, user: username });
     }
     console.log(cookies.getAll());
   };
