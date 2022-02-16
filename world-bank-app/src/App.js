@@ -12,14 +12,18 @@ class App extends React.Component {
     super();
     this.state = {
       results: [],
+      compareResults: [],
       isLoggedIn: false,
       user: null,
     };
   }
 
-  setData = (data) => {
+  setData = (data, compareData) => {
     console.log("changed");
-    this.setState({ results: data ? [...data] : [] });
+    this.setState({
+      results: data ? [...data] : [],
+      compareResults: compareData ? [...compareData] : [],
+    });
   };
 
   logIn(email) {
@@ -31,7 +35,9 @@ class App extends React.Component {
       <Switch>
         <Route path="/home">
           {this.state.results.length === 0 ? (
-            <SearchPage setData={(data) => this.setData(data)} />
+            <SearchPage
+              setData={(data, compareData) => this.setData(data, compareData)}
+            />
           ) : (
             <Redirect to="/results" />
           )}
@@ -46,7 +52,11 @@ class App extends React.Component {
           {this.state.results.length === 0 ? (
             <Redirect to="/home" />
           ) : (
-            <Results data={this.state.results} setData={() => this.setData()} />
+            <Results
+              data={this.state.results}
+              compareData={this.state.compareResults}
+              setData={() => this.setData()}
+            />
           )}
         </Route>
         <Route path="/">

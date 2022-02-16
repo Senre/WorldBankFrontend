@@ -27,6 +27,16 @@ export default class Network {
     return await response.json();
   };
 
+  fetchCountryNames = async () => {
+    const response = await fetch("http://localhost:8080/countries", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  };
+
   loggingIn = async (email, password) => {
     const body = {
       email,
