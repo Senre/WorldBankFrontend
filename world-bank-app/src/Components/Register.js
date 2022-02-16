@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import invalidChars from "../invalidChars";
 import Alert from "react-bootstrap/Alert";
-import { Switch, Link } from "react-router-dom";
+import { Switch, Link, Route } from "react-router-dom";
 import Network from "./Network";
 
 const network = new Network();
@@ -117,6 +117,12 @@ class Register extends React.Component {
     this.props.logIn(this.state.usernameInput);
   }
 
+  redirect() {
+    <Switch>
+      <Route />
+    </Switch>;
+  }
+
   getRegister() {
     return (
       <Form onSubmit={(e) => this.handleSubmit(e)}>
@@ -207,12 +213,12 @@ class Register extends React.Component {
     return (
       <div>
         {this.getRegister()}
-        {this.state.validRegister ? null : this.getWarning("account")}
         {this.state.error ? (
           <div class="alert alert-danger" role="alert">
             Oops! Something went wrong. "{this.state.error}".
           </div>
         ) : null}
+        {this.state.success ? this.redirect() : null}
       </div>
     );
   }
