@@ -16,19 +16,23 @@ class Results extends React.Component {
   sortIncomingData = (data) => {
     let set = -1;
     let sortedData = [];
-    let checkYear = "";
+    let checkIndicator = "";
     data.forEach((element) => {
-      if (checkYear !== element.indicatorname) {
+      if (checkIndicator !== element.indicatorname) {
         set++;
         sortedData.push([]);
       }
 
       sortedData[set].push(element);
-      checkYear = element.indicatorname;
+      checkIndicator = element.indicatorname;
     });
 
     sortedData = sortedData.map((set) => {
       return set.sort((a, b) => (a.year < b.year ? -1 : 1));
+    });
+
+    sortedData.sort(function (a, b) {
+      return a[0].indicatorname > b[0].indicatorname ? 1 : -1;
     });
 
     return sortedData;
@@ -79,18 +83,66 @@ class Results extends React.Component {
     }
   };
 
+  filterTwoDataSets = (setOne, setTwo) => {
+    const setTwoIndicators = setTwo.map((entry) => {
+      return entry[0].indicatorname;
+    });
+
+    const setOneIndicators = setOne.map((entry) => {
+      return entry[0].indicatorname;
+    });
+
+    const filteredSetOne = setOne.filter((entry) =>
+      setTwoIndicators.includes(entry[0].indicatorname)
+    );
+
+    const filteredSetTwo = setTwo.filter((entry) =>
+      setOneIndicators.includes(entry[0].indicatorname)
+    );
+
+    return { dataMain: filteredSetOne, dataCompare: filteredSetTwo };
+  };
+
   renderIncomingData = () => {
     const { data, compareData, comparison } = this.state;
     const sortedData = this.sortIncomingData(data);
     if (comparison) {
       const sortedCompareData = this.sortIncomingData(compareData);
-      return sortedData.map((set, i) => {
+
+      const { dataMain, dataCompare } = this.filterTwoDataSets(
+        sortedData,
+        sortedCompareData
+      );
+
+      return dataMain.map((set, i) => {
         return (
           <div key={i} className="rendered-data">
-            {this.renderComparison(set, sortedCompareData[i])}
+            {this.renderComparison(set, dataCompare[i])}
           </div>
         );
       });
+
+      // if (sortedData.length >= sortedCompareData.length) {
+      //   return sortedCompareData.map((set, i) => {
+      //     return (
+      //       <div key={i} className="rendered-data">
+      //         {set[0].indicatorname === sortedData[i][0].indicatorname
+      //           ? this.renderComparison(set, sortedData[i])
+      //           : this.renderLineChart(set)}
+      //       </div>
+      //     );
+      //   });
+      // } else {
+      //   return sortedData.map((set, i) => {
+      //     return (
+      //       <div key={i} className="rendered-data">
+      //         {set[0].indicatorname === sortedCompareData[i][0].indicatorname
+      //           ? this.renderComparison(set, sortedCompareData[i])
+      //           : this.renderLineChart(set)}
+      //       </div>
+      //     );
+      //   });
+      // }
     } else {
       return sortedData.map((set, i) => {
         return (

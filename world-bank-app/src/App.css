@@ -42,18 +42,28 @@
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
 }
 
 .rendered-data {
   margin-bottom: 50px;
+  width: 40%;
 }
 
 .graph-container {
   display: flex;
   flex-direction: column;
+  height: fit-content;
+  width: 100%;
 }
 
 .graph-container > h5 {
   margin-left: auto;
   margin-right: 10px;
+}
+
+.graph-plot {
+  height: 300px;
+  width: 100%;
 }
