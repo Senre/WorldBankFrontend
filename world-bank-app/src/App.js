@@ -6,32 +6,58 @@ import LoginPage from "./Components/LoginPage";
 import Results from "./Components/Results";
 import SearchPage from "./Components/SearchPage";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
     this.state = {
       results: [],
-      isLoggedIn: false,
+      compareResults: [],
+      isLoggedIn: cookies.get("sessionId") ? true : false,
       username: null,
     };
   }
 
-  setData = (data) => {
+  setData = (data, compareData) => {
     console.log("changed");
-    this.setState({ results: data ? [...data] : [] });
+    this.setState({
+      results: data ? [...data] : [],
+      compareResults: compareData ? [...compareData] : [],
+    });
   };
 
-  logIn(username) {
-    this.setState({ loggedIn: true, user: username });
-  }
+  logIn = (username) => {
+    const { cookies } = this.props;
+    console.log("logged");
+    const currentState = this.state.isLoggedIn;
+    if (this.state.isLoggedIn) {
+      console.log("removed");
+      cookies.remove("sessionId");
+      cookies.remove("user_id");
+      cookies.remove("email");
+      this.setState({ isLoggedIn: !currentState, username: "" });
+    } else {
+      this.setState({ loggedIn: true, user: username });
+    }
+    console.log(cookies.getAll());
+  };
 
   render() {
     return (
       <Switch>
         <Route path="/home">
           {this.state.results.length === 0 ? (
-            <SearchPage setData={(data) => this.setData(data)} />
+            <SearchPage
+              setData={(data, compareData) => this.setData(data, compareData)}
+              logIn={() => this.logIn()}
+            />
           ) : (
             <Redirect to="/results" />
           )}
@@ -41,13 +67,22 @@ class App extends React.Component {
           {this.state.isLoggedIn ? <Redirect to="home" /> : null}
         </Route>
         <Route path="/login" component={LoginPage}>
-          <LoginPage />
+          {this.state.isLoggedIn ? (
+            <Redirect to="/home" />
+          ) : (
+            <LoginPage logIn={() => this.logIn()} />
+          )}
         </Route>
         <Route path="/results">
           {this.state.results.length === 0 ? (
             <Redirect to="/home" />
           ) : (
-            <Results data={this.state.results} setData={() => this.setData()} />
+            <Results
+              data={this.state.results}
+              compareData={this.state.compareResults}
+              setData={() => this.setData()}
+              logIn={() => this.logIn()}
+            />
           )}
         </Route>
         <Route path="/">
@@ -62,4 +97,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withCookies(App);

@@ -32,9 +32,9 @@ class LoginPage extends React.Component {
     const { email, password } = this.state;
     if (email && password) {
       const response = await this.network.loggingIn(email, password);
-
+      console.log(response);
       if (response.ok) {
-        this.props.loggingIn();
+        this.props.logIn();
       } else {
         console.log("Incorrect Email or Password");
       }
@@ -51,12 +51,13 @@ class LoginPage extends React.Component {
     return (
       <div className="LoginPage">
         <Form className="form" onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
               value={this.state.email}
+              id="email"
               onChange={(e) => this.handleChange(e)}
             />
             <Form.Text className="text-muted">
@@ -64,22 +65,23 @@ class LoginPage extends React.Component {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Password"
               value={this.state.password}
+              id="password"
               onChange={(e) => this.handleChange(e)}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Group className="mb-3">
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
           </Button>
-          <Form.Group className="mb-3" controlId="formBasicButton">
+          <Form.Group className="mb-3">
             <Form.Text className="text-muted">
               Don't have an account?{" "}
             </Form.Text>
