@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state = {
       results: [],
       isLoggedIn: false,
-      user: null,
+      username: null,
     };
   }
 
@@ -22,8 +22,8 @@ class App extends React.Component {
     this.setState({ results: data ? [...data] : [] });
   };
 
-  logIn(email) {
-    this.setState({ loggedIn: true, user: email });
+  logIn(username) {
+    this.setState({ loggedIn: true, user: username });
   }
 
   render() {
@@ -37,7 +37,8 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/register">
-          <Register logIn={(email) => this.LogIn(email)} />
+          <Register logIn={(username) => this.LogIn(username)} />
+          {this.state.isLoggedIn ? <Redirect to="home" /> : null}
         </Route>
         <Route path="/login" component={LoginPage}>
           <LoginPage />

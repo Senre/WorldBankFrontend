@@ -17,7 +17,6 @@ class Register extends React.Component {
       confirmPasswordInput: "",
       passwordMatch: false,
       invalidChars: invalidChars,
-      validRegister: true,
       success: false,
       error: false,
     };
@@ -33,7 +32,7 @@ class Register extends React.Component {
       const json = await network.registerUser(username, password);
       if (json.status === 200) {
         this.handleLogIn();
-        this.redirect();
+        this.setState({ success: true });
       } else if (json.status >= 400 && json.status < 600) {
         throw new Error("Bad response from server.");
       } else {
@@ -111,18 +110,11 @@ class Register extends React.Component {
     e.preventDefault();
     if (this.isAccountValid) {
       this.registerUser(this.state.usernameInput, this.state.passwordInput);
-      this.setState({ validRegister: true });
-    } else {
-      this.setState({ validRegister: false });
     }
   }
 
   handleLogIn() {
-    this.props.logIn(this.state.emailInput);
-  }
-
-  redirect() {
-    <Switch></Switch>;
+    this.props.logIn(this.state.usernameInput);
   }
 
   getRegister() {
@@ -133,6 +125,8 @@ class Register extends React.Component {
           <Form.Control
             type="email"
             placeholder="Enter email"
+            minLength="5"
+            maxLength="100"
             required
             value={this.state.usernameInput}
             onChange={(e) => this.handleUsernameInput(e)}
@@ -152,7 +146,7 @@ class Register extends React.Component {
           <Form.Control
             type="password"
             placeholder="Enter password"
-            minlength="8"
+            minLength="8"
             maxLength="20"
             required
             value={this.state.passwordInput}
@@ -174,6 +168,7 @@ class Register extends React.Component {
             type="password"
             placeholder="Confirm password"
             minLength="8"
+            maxLength="20"
             required
             value={this.state.confirmPasswordInput}
             onChange={(e) => this.handleConfirmPasswordInput(e)}
