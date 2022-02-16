@@ -23,7 +23,6 @@ class Register extends React.Component {
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
     this.handleConfirmPasswordInput =
       this.handleConfirmPasswordInput.bind(this);
-    this.handleSubmit = this.handleSubmit(this);
   }
 
   async registerUser(email, password) {
@@ -120,13 +119,14 @@ class Register extends React.Component {
     this.setState({ confirmPasswordInput: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
+    e.preventDefault();
     if (this.isAccountValid) {
       this.registerUser(this.state.emailInput, this.state.passwordInput);
     } else {
       this.setState({ validRegister: false });
     }
-  }
+  };
 
   handleLogIn() {
     this.props.logIn(this.state.emailInput);
@@ -195,11 +195,7 @@ class Register extends React.Component {
             label="By ticking this box, you agree that you have read the Terms and Conditions."
           />
         </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          onChange={(e) => this.handleSubmit(e)}
-        >
+        <Button variant="primary" type="submit">
           Register
         </Button>
         <Form.Group className="mb-3" controlId="formBasicButton">
