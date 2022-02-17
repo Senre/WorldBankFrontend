@@ -36,7 +36,7 @@ class Header extends React.Component {
       const { created_at, country, indicator, start_year, end_year } = search;
       const indicatorPresent = indicator ? `${indicator},` : "";
       return (
-        <Dropdown.Item eventKey={i}>
+        <Dropdown.Item eventKey={i} key={i}>
           {country}, {indicatorPresent} between {start_year} and {end_year} |{" "}
           {created_at}
         </Dropdown.Item>
