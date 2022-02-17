@@ -4,15 +4,29 @@ import { instanceOf } from "prop-types";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Network from "./Network";
 
 class Header extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
 
+  componentDidMount() {
+    this.getUserSearches();
+  }
+
+  constructor() {
+    super();
+
+    this.network = new Network();
+  }
+
   getUserSearches = async () => {
     const { cookies } = this.props;
     const user_id = cookies.get("user_id");
+    const searches = await this.network.getUserSearches(user_id);
+
+    console.log(searches);
   };
 
   render() {
