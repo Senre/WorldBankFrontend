@@ -79,7 +79,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header-buttons">
-        <div className="header-search-button">
+        <div id="home-logout-btn">
           <Link to="/home">
             <Button variant="primary" onClick={() => this.props.setData()}>
               Home
@@ -90,6 +90,8 @@ class Header extends React.Component {
               Log Out
             </Button>
           </Link>
+        </div>
+        <div className="history-btn">
           <Dropdown onSelect={this.fireHistoricSearch}>
             <Dropdown.Toggle id="history-dropdown" variant="secondary">
               History

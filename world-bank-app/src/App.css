@@ -91,6 +91,10 @@ h5 {
   background-color: darkcyan;
   border: black;
 }
+
+.btn-secondary {
+  border: black;
+}
 /* CSS for Login Page */
 .spacing {
   background: #fff;
@@ -98,9 +102,6 @@ h5 {
   width: 900px;
   margin: 2rem auto;
   box-shadow: rgba(0, 0, 0, 0.05) -2px -2px 4px;
-  /* background-color: white;
-  display: flex;
-  flex-direction: column; */
 }
 .loginPage {
   align-content: stretch;
@@ -119,13 +120,20 @@ h5 {
   padding-right: 10px;
 }
 /* CSS for Search Page */
+.header-home-btn {
+}
 .header-buttons {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
 }
-#search-container {
+
+/* .history-btn {
   display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
+  justify-content: flex-start;
+} */
+#home-logout-btn {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }
