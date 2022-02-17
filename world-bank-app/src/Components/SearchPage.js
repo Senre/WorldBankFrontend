@@ -6,6 +6,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
 import Header from "./Header";
+import Spinner from "react-bootstrap/Spinner";
 
 class SearchPage extends React.Component {
   static propTypes = {
@@ -26,12 +27,14 @@ class SearchPage extends React.Component {
       countriesList: [],
       currentUser: Number(cookies.get("user_id")),
       username: cookies.get("email"),
+      loading: false,
     };
     this.network = new Network();
   }
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    this.alternateLoading();
     const { cookies } = this.props;
     console.log(cookies.getAll());
     const user_id = cookies.get("user_id");
@@ -90,6 +93,7 @@ class SearchPage extends React.Component {
     } else {
       console.log("Invalid Country");
     }
+    this.alternateLoading();
   };
 
   componentDidMount = async () => {
@@ -118,6 +122,17 @@ class SearchPage extends React.Component {
     const { compare } = this.state;
     this.setState({ compare: !compare });
     this.getIndicatorNames();
+  };
+
+  alternateLoading = () => {
+    const { loading } = this.state;
+    this.setState({ loading: !loading });
+  };
+
+  getLoadingComponent = () => {
+    return (
+      <Spinner size="lg" animation="border" role="status" variant="dark" />
+    );
   };
 
   handleChange = (e) => {
