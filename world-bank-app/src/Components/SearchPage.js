@@ -211,7 +211,9 @@ class SearchPage extends React.Component {
       <main>
         <header className="main-header">
           <Header
-            setData={() => this.props.setData()}
+            setData={(data, compareData) =>
+              this.props.setData(data, compareData)
+            }
             logIn={() => this.props.logIn()}
           ></Header>
         </header>

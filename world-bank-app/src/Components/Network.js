@@ -91,4 +91,16 @@ export default class Network {
 
     return response;
   };
+
+  getUserSearches = async (user_id) => {
+    const response = await fetch(`http://localhost:8080/searches/${user_id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  };
 }
