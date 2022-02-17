@@ -93,25 +93,17 @@ class SearchPage extends React.Component {
   };
 
   componentDidMount = async () => {
-    const indicators = await this.getIndicatorNames();
     const countries = await this.getCountryNames();
+    const indicators = await this.getIndicatorNames();
     this.setState({ indicatorList: indicators, countriesList: countries });
   };
 
   getIndicatorNames = async () => {
-    const response = await this.network.fetchIndicatorNames();
-    const indicators = response.rows.map((entry) => {
-      return entry.indicatorname;
-    });
-    return indicators;
+    return await this.network.fetchIndicatorNames();
   };
 
   getCountryNames = async () => {
-    const response = await this.network.fetchCountryNames();
-    const countries = response.rows.map((entry) => {
-      return entry.shortname;
-    });
-    return countries;
+    return await this.network.fetchCountryNames();
   };
 
   activateCompare = async () => {
