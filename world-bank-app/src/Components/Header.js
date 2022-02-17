@@ -11,23 +11,37 @@ class Header extends React.Component {
     cookies: instanceOf(Cookies).isRequired,
   };
 
-  componentDidMount() {
-    this.getUserSearches();
-  }
-
   constructor() {
     super();
-
+    this.state = {
+      userSearches: [],
+    };
     this.network = new Network();
+  }
+
+  componentDidMount() {
+    this.getUserSearches();
   }
 
   getUserSearches = async () => {
     const { cookies } = this.props;
     const user_id = cookies.get("user_id");
     const searches = await this.network.getUserSearches(user_id);
-
+    this.setState({ userSearches: searches });
     console.log(searches);
   };
+
+  addSearchesToDropdown(searches) {
+    return searches.map((search, i) => {
+      const { created_at, country, indicator, start_year, end_year } = search;
+      return (
+        <Dropdown.Item key={i} value={search}>
+          {country}, {indicator}, between {start_year} and {end_year} at:
+          {created_at}
+        </Dropdown.Item>
+      );
+    });
+  }
 
   render() {
     return (
@@ -48,7 +62,9 @@ class Header extends React.Component {
               History
             </Dropdown.Toggle>
 
-            <Dropdown.Menu></Dropdown.Menu>
+            <Dropdown.Menu>
+              {this.addSearchesToDropdown(this.state.userSearches)}
+            </Dropdown.Menu>
           </Dropdown>
         </div>
       </div>

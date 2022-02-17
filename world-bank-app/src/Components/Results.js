@@ -136,7 +136,10 @@ class Results extends React.Component {
     return (
       <main>
         <header className="main-header">
-          <Header setData={() => this.props.setData()} />
+          <Header
+            setData={() => this.props.setData()}
+            logIn={() => this.props.logIn()}
+          />
         </header>
         <h1 className="results-title">
           {comparison
