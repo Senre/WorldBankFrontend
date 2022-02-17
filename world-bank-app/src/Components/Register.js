@@ -30,7 +30,9 @@ class Register extends React.Component {
   async registerUser(username, password) {
     try {
       const json = await network.registerUser(username, password);
+      console.log(json);
       if (json.status === 200) {
+        console.log("test");
         this.handleLogIn();
         this.setState({ success: true });
       } else if (json.status >= 400 && json.status < 600) {

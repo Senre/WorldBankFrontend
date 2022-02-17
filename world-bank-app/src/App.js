@@ -63,8 +63,11 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/register">
-          <Register logIn={(username) => this.LogIn(username)} />
-          {this.state.isLoggedIn ? <Redirect to="home" /> : null}
+          {this.state.isLoggedIn ? (
+            <Redirect to="/home" />
+          ) : (
+            <Register logIn={(username) => this.logIn(username)} />
+          )}
         </Route>
         <Route path="/login" component={LoginPage}>
           {this.state.isLoggedIn ? (

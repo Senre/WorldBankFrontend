@@ -12,7 +12,7 @@ export default class Network {
       }),
     });
 
-    const json = await response.json();
+    const json = await response;
     return json;
   }
 
