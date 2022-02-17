@@ -5,6 +5,7 @@ import Register from "./Components/Register/Register";
 import LoginPage from "./Components/LoginPage";
 import Results from "./Components/Results";
 import SearchPage from "./Components/SearchPage";
+import Admin from "./Components/Admin";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
@@ -22,8 +23,14 @@ class App extends React.Component {
       compareResults: [],
       isLoggedIn: cookies.get("sessionId") ? true : false,
       username: null,
+      admin: false,
     };
   }
+
+  setAdmin = () => {
+    const newAdmin = this.state.admin;
+    this.setState({ admin: !newAdmin });
+  };
 
   setData = (data, compareData) => {
     console.log("changed");
@@ -70,10 +77,14 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/login" component={LoginPage}>
+          {this.state.admin && <Redirect to="/admin" />}
           {this.state.isLoggedIn ? (
             <Redirect to="/home" />
           ) : (
-            <LoginPage logIn={() => this.logIn()} />
+            <LoginPage
+              logIn={() => this.logIn()}
+              setAdmin={() => this.setAdmin()}
+            />
           )}
         </Route>
         <Route path="/results">
@@ -86,6 +97,20 @@ class App extends React.Component {
               setData={() => this.setData()}
               logIn={() => this.logIn()}
             />
+          )}
+        </Route>
+        <Route path="/admin">
+          {this.state.admin ? (
+            this.state.results.length === 0 ? (
+              <Admin
+                setAdmin={() => this.setAdmin()}
+                setData={(data, compareData) => this.setData(data, compareData)}
+              />
+            ) : (
+              <Redirect to="/results" />
+            )
+          ) : (
+            <Redirect to="/login" />
           )}
         </Route>
         <Route path="/">
