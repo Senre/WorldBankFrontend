@@ -103,7 +103,14 @@ class App extends React.Component {
         </Route>
         <Route path="/admin">
           {this.state.admin ? (
-            <Admin setAdmin={() => this.setAdmin()} />
+            this.state.results.length === 0 ? (
+              <Admin
+                setAdmin={() => this.setAdmin()}
+                setData={(data, compareData) => this.setData(data, compareData)}
+              />
+            ) : (
+              <Redirect to="/results" />
+            )
           ) : (
             <Redirect to="/login" />
           )}
