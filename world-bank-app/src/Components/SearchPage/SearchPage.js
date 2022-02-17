@@ -244,7 +244,11 @@ class SearchPage extends React.Component {
             ></Header>
           </header>
         </div>
-        <div className="spacing">{this.renderSearchForm()}</div>
+        <div className="spacing">
+          {this.state.loading
+            ? this.getLoadingComponent()
+            : this.renderSearchForm()}
+        </div>
       </main>
     );
   }
