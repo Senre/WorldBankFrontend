@@ -184,7 +184,11 @@ class Register extends React.Component {
           <Alert variant="danger"> Passwords do not match.</Alert>
         )}
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Group
+          data-testid="register-checkbox-unchecked"
+          className="mb-3"
+          controlId="formBasicCheckbox"
+        >
           <Form.Check
             type="checkbox"
             label="By ticking this box, you agree that you have read the Terms and Conditions."
