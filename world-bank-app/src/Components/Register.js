@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import invalidChars from "../invalidChars";
 import Alert from "react-bootstrap/Alert";
-import { Switch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Network from "./Network";
 
 const network = new Network();
