@@ -5,7 +5,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Network from "./Network";
-import { withCookies } from "react-cookie";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -50,47 +49,50 @@ class LoginPage extends React.Component {
 
   loginPopup() {
     return (
-      <div className="LoginPage">
-        <Form className="form" onSubmit={(e) => this.handleSubmit(e)}>
-          <Form.Group className="mb-3">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={this.state.email}
-              id="email"
-              onChange={(e) => this.handleChange(e)}
-            />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
+      <div className="spacing">
+        <div className="loginPage">
+          {/* <div>
+            <h3>Please login to access and search the World Bank Database</h3>
+          </div> */}
+          <div>
+            <Form className="form" onSubmit={(e) => this.handleSubmit(e)}>
+              <Form.Group className="mb-3">
+                <Form.Label className="username-label">Username</Form.Label>
+                <Form.Control
+                  className="username-input"
+                  type="email"
+                  placeholder="Enter email"
+                  value={this.state.email}
+                  id="email"
+                  onChange={(e) => this.handleChange(e)}
+                />
+              </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={this.state.password}
-              id="password"
-              onChange={(e) => this.handleChange(e)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-          <Form.Group className="mb-3">
-            <Form.Text className="text-muted">
-              Don't have an account?{" "}
-            </Form.Text>
-            <Link to="/register">
-              <Button variant="secondary">Create an Account</Button>
-            </Link>
-          </Form.Group>
-        </Form>
+              <Form.Group className="mb-3">
+                <Form.Label className="password-label">Password</Form.Label>
+                <Form.Control
+                  className="password-input"
+                  type="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  id="password"
+                  onChange={(e) => this.handleChange(e)}
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+              <Form.Group className="mb-3" id="register-redirect">
+                <Form.Label className="register-label">
+                  Don't have an account?
+                </Form.Label>
+                <Link to="/register">
+                  <Button variant="primary">Create an Account</Button>
+                </Link>
+              </Form.Group>
+            </Form>
+          </div>
+        </div>
       </div>
     );
   }
@@ -100,4 +102,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default withCookies(LoginPage);
+export default LoginPage;
