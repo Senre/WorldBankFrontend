@@ -38,7 +38,6 @@ class App extends React.Component {
   logIn = (username) => {
     const { cookies } = this.props;
     console.log("logged");
-    console.log(cookies.getAll());
     const currentState = this.state.isLoggedIn;
     if (this.state.isLoggedIn) {
       console.log("removed");
