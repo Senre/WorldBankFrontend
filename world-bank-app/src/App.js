@@ -23,8 +23,6 @@ class App extends React.Component {
       isLoggedIn: cookies.get("sessionId") ? true : false,
       username: null,
     };
-
-    console.log(this.state.isLoggedIn);
   }
 
   setData = (data, compareData) => {
@@ -41,9 +39,9 @@ class App extends React.Component {
     const currentState = this.state.isLoggedIn;
     if (this.state.isLoggedIn) {
       console.log("removed");
-      cookies.remove("sessionId", { path: "/" });
-      cookies.remove("user_id", { path: "/" });
-      cookies.remove("email", { path: "/" });
+      cookies.remove("sessionId");
+      cookies.remove("user_id");
+      cookies.remove("email");
       this.setState({ isLoggedIn: !currentState, username: "" });
     } else {
       this.setState({ isLoggedIn: true, user: username });
