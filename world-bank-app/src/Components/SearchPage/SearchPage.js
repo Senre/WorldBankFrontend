@@ -1,11 +1,11 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Form } from "react-bootstrap";
-import Network from "./Network";
+import Network from "../Network";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { withCookies, Cookies } from "react-cookie";
 import { instanceOf } from "prop-types";
-import Header from "./Header";
+import Header from "../Header";
 import Spinner from "react-bootstrap/Spinner";
 
 class SearchPage extends React.Component {
@@ -104,18 +104,18 @@ class SearchPage extends React.Component {
 
   getIndicatorNames = async () => {
     const response = await this.network.fetchIndicatorNames();
-    const indicators = response.rows.map((entry) => {
-      return entry.indicatorname;
-    });
-    return indicators;
+    // const indicators = response.rows.map((entry) => {
+    //   return entry.indicatorname;
+    // });
+    return response;
   };
 
   getCountryNames = async () => {
     const response = await this.network.fetchCountryNames();
-    const countries = response.rows.map((entry) => {
-      return entry.shortname;
-    });
-    return countries;
+    // const countries = response.rows.map((entry) => {
+    //   return entry.shortname;
+    // });
+    return response;
   };
 
   activateCompare = async () => {
@@ -237,7 +237,9 @@ class SearchPage extends React.Component {
         <div className="spacing">
           <header className="main-header">
             <Header
-              setData={() => this.props.setData()}
+              setData={(data, compareData) =>
+                this.props.setData(data, compareData)
+              }
               logIn={() => this.props.logIn()}
             ></Header>
           </header>

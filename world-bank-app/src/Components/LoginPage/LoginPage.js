@@ -1,10 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../App.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import Network from "./Network";
+import Network from "../Network";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -63,7 +62,7 @@ class LoginPage extends React.Component {
                 <Form.Label className="username-label">Username</Form.Label>
                 <Form.Control
                   className="username-input"
-                  type="email"
+                  type="text"
                   placeholder="Enter email"
                   value={this.state.email}
                   id="email"

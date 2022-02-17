@@ -1,6 +1,6 @@
 import React from "react";
-import Graph from "./Graph";
-import Header from "./Header";
+import Graph from "../Graph/Graph";
+import Header from "../Header";
 
 class Results extends React.Component {
   constructor(props) {

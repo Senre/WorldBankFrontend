@@ -34,6 +34,7 @@ class App extends React.Component {
 
   setData = (data, compareData) => {
     console.log("changed");
+    console.log(data, compareData);
     this.setState({
       results: data ? [...data] : [],
       compareResults: compareData ? [...compareData] : [],

@@ -62,6 +62,7 @@ class Header extends React.Component {
         start_year,
         end_year
       );
+
       this.props.setData(response, compareResponse);
     } else {
       const response = await this.network.fetchCountryData(
@@ -70,6 +71,7 @@ class Header extends React.Component {
         start_year,
         end_year
       );
+      console.log(response);
       this.props.setData(response);
     }
   };
