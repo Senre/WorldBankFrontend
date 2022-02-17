@@ -103,4 +103,16 @@ export default class Network {
 
     return await response.json();
   };
+
+  getAllSearches = async () => {
+    const response = await fetch(`http://localhost:8080/searches`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  };
 }
