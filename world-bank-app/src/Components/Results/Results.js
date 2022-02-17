@@ -147,9 +147,10 @@ class Results extends React.Component {
           <div className="spacing">
             <h1 className="results-title">
               {comparison
-                ? `${data[0].countryname} Vs. ${compareData[0].countryname}`
+                ? `${data[0].countryname} vs. ${compareData[0].countryname}`
                 : data[0].countryname}
             </h1>
+            <hr />
             <div className="results-content">
               {this.renderIncomingData().filter((element) => element)}
             </div>

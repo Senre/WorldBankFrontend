@@ -244,6 +244,24 @@ class SearchPage extends React.Component {
             ></Header>
           </header>
         </div>
+        <article className="spacing">
+          <h4>Welcome to the World Bank Database!</h4>
+          <p>Explore country development indicators from around the world.</p>
+          <p>To use:</p>
+          <ol>
+            <li>Pick a country.</li>
+            <li>
+              Pick one of the 1000+ World Development Indicators from the World
+              Bank Database.
+            </li>
+            <li>Or leave blank to view all indicators.</li>
+            <li>Finally, click Submit to view a graph of this data!</li>
+            <li>
+              You can also use the + feature to compare more than one country.
+            </li>
+          </ol>
+          <p>Happy hunting!</p>
+        </article>
         <div className="spacing">
           {this.state.loading
             ? this.getLoadingComponent()
