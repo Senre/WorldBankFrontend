@@ -34,9 +34,10 @@ class Header extends React.Component {
   addSearchesToDropdown(searches) {
     return searches.map((search, i) => {
       const { created_at, country, indicator, start_year, end_year } = search;
+      const indicatorPresent = indicator ? `${indicator},` : "";
       return (
         <Dropdown.Item eventKey={i}>
-          {country}, {indicator}, between {start_year} and {end_year} |{" "}
+          {country}, {indicatorPresent} between {start_year} and {end_year} |{" "}
           {created_at}
         </Dropdown.Item>
       );
@@ -45,9 +46,8 @@ class Header extends React.Component {
 
   fireHistoricSearch = async (e) => {
     const { userSearches } = this.state;
-    const { country, indicator, start_year, end_year } =
-      userSearches[Number(e)];
-
+    let { country, indicator, start_year, end_year } = userSearches[Number(e)];
+    indicator = indicator ? indicator : "";
     const compareCountries = country.split(" vs ");
     if (compareCountries.length > 1) {
       const response = await this.network.fetchCountryData(
