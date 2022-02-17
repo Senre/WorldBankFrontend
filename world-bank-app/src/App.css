@@ -33,10 +33,6 @@
 }
 body {
   background-color: darkcyan;
-  padding-top: 50px;
-  padding-bottom: 20px;
-  padding-left: 200px;
-  padding-right: 200px;
   font-family: Arial, Helvetica, sans-serif;
 }
 .results-content {
@@ -67,7 +63,6 @@ body {
   display: flex;
   justify-content: center;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
 }
 /* .results-content {
 } */
@@ -78,7 +73,6 @@ body {
 /* CSS for Login Page and Register Page */
 .loginPage,
 .registerPage {
-  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -120,18 +114,13 @@ h5 {
   padding-right: 10px;
 }
 /* CSS for Search Page */
-.header-home-btn {
-}
+
 .header-buttons {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
-/* .history-btn {
-  display: flex;
-  justify-content: flex-start;
-} */
 #home-logout-btn {
   display: flex;
   justify-content: space-between;
