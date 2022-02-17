@@ -3,13 +3,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import invalidChars from "../../invalidChars";
 import Alert from "react-bootstrap/Alert";
-<<<<<<< HEAD:world-bank-app/src/Components/Register.js
 import { Link } from "react-router-dom";
 import Network from "./Network";
-=======
-import { Switch, Link, Route } from "react-router-dom";
-import Network from "../Network";
->>>>>>> FahmidulHaquee-main:world-bank-app/src/Components/Register/Register.js
 
 const network = new Network();
 
@@ -196,8 +191,11 @@ class Register extends React.Component {
               <Alert variant="danger"> Passwords do not match.</Alert>
             )}
 
-<<<<<<< HEAD:world-bank-app/src/Components/Register.js
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Group
+              data-testid="register-checkbox-unchecked"
+              className="mb-3"
+              controlId="formBasicCheckbox"
+            >
               <Form.Check
                 type="checkbox"
                 label="By ticking this box, you agree that you have read the Terms and Conditions."
@@ -215,28 +213,6 @@ class Register extends React.Component {
           </Form>
         </div>
       </div>
-=======
-        <Form.Group
-          data-testid="register-checkbox-unchecked"
-          className="mb-3"
-          controlId="formBasicCheckbox"
-        >
-          <Form.Check
-            type="checkbox"
-            label="By ticking this box, you agree that you have read the Terms and Conditions."
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-        <Form.Group className="mb-3" controlId="formBasicButton">
-          <Form.Text className="text">Already have an account? </Form.Text>
-          <Link to="/login">
-            <Button variant="secondary">Login</Button>
-          </Link>
-        </Form.Group>
-      </Form>
->>>>>>> FahmidulHaquee-main:world-bank-app/src/Components/Register/Register.js
     );
   }
 
