@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Register from "./Components/Register";
+import Register from "./Components/Register/Register";
 import LoginPage from "./Components/LoginPage";
 import Results from "./Components/Results";
 import SearchPage from "./Components/SearchPage";
@@ -44,7 +44,7 @@ class App extends React.Component {
       cookies.remove("email");
       this.setState({ isLoggedIn: !currentState, username: "" });
     } else {
-      this.setState({ loggedIn: true, user: username });
+      this.setState({ isLoggedIn: true, user: username });
     }
     console.log(cookies.getAll());
   };
@@ -63,8 +63,8 @@ class App extends React.Component {
           )}
         </Route>
         <Route path="/register">
-          <Register logIn={(username) => this.LogIn(username)} />
-          {this.state.isLoggedIn ? <Redirect to="home" /> : null}
+          <Register logIn={(username) => this.logIn(username)} />
+          {this.state.isLoggedIn ? <Redirect to="/home" /> : null}
         </Route>
         <Route path="/login" component={LoginPage}>
           {this.state.isLoggedIn ? (

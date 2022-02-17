@@ -12,8 +12,7 @@ export default class Network {
       }),
     });
 
-    const json = await response.json();
-    return json;
+    return response;
   }
 
   fetchCountryData = async (country, indicator, startYear, endYear) => {
