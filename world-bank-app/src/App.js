@@ -1,10 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Register from "./Components/Register/Register";
-import LoginPage from "./Components/LoginPage";
-import Results from "./Components/Results";
-import SearchPage from "./Components/SearchPage";
+import Register from "./Components/Register/Register.js";
+import LoginPage from "./Components/LoginPage/LoginPage.js";
+import Results from "./Components/Results/Results.js";
+import SearchPage from "./Components/SearchPage/SearchPage.js";
 import Admin from "./Components/Admin";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { withCookies, Cookies } from "react-cookie";
