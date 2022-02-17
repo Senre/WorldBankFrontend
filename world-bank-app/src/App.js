@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Register from "./Components/Register";
+import Register from "./Components/Register/Register";
 import LoginPage from "./Components/LoginPage";
 import Results from "./Components/Results";
 import SearchPage from "./Components/SearchPage";
