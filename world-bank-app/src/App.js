@@ -77,7 +77,7 @@ class App extends React.Component {
             <Register logIn={(username) => this.logIn(username)} />
           )}
         </Route>
-        <Route path="/login" component={LoginPage}>
+        <Route path="/login">
           {this.state.admin && <Redirect to="/admin" />}
           {this.state.isLoggedIn ? (
             <Redirect to="/home" />

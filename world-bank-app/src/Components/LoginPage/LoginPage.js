@@ -29,7 +29,6 @@ class LoginPage extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
-
     if (email === "admin" && password === "admin") {
       this.props.setAdmin();
     } else if (email && password) {
