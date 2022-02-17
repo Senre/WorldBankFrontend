@@ -17,25 +17,30 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="header-buttons">
-        <div className="header-search-button">
-          <Link to="/home">
-            <Button variant="primary" onClick={() => this.props.setData()}>
-              Search
-            </Button>
-          </Link>
+      <div className="header-buttons" id="headerbuttons">
+        <div id="search-container">
+          <div className="header-search-button">
+            <Link to="/home">
+              <Button variant="primary" onClick={() => this.props.setData()}>
+                Search
+              </Button>
+            </Link>
+          </div>
+          <div>
+            <Dropdown>
+              <Dropdown.Toggle id="history-dropdown" variant="secondary">
+                History
+              </Dropdown.Toggle>
+              <Dropdown.Menu></Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </div>
+        <div>
           <Link to="/login">
             <Button variant="primary" onClick={() => this.props.logIn()}>
               Log Out
             </Button>
           </Link>
-          <Dropdown>
-            <Dropdown.Toggle id="history-dropdown" variant="secondary">
-              History
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu></Dropdown.Menu>
-          </Dropdown>
         </div>
       </div>
     );

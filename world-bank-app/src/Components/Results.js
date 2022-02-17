@@ -134,17 +134,19 @@ class Results extends React.Component {
   render() {
     const { data, compareData, comparison } = this.state;
     return (
-      <main>
-        <header className="main-header">
-          <Header setData={() => this.props.setData()} />
-        </header>
-        <h1 className="results-title">
-          {comparison
-            ? `${data[0].countryname} Vs. ${compareData[0].countryname}`
-            : data[0].countryname}
-        </h1>
-        <div className="results-content">{this.renderIncomingData()}</div>
-      </main>
+      <div className="spacing">
+        <main>
+          <header className="main-header">
+            <Header setData={() => this.props.setData()} />
+          </header>
+          <h1 className="results-title">
+            {comparison
+              ? `${data[0].countryname} Vs. ${compareData[0].countryname}`
+              : data[0].countryname}
+          </h1>
+          <div className="results-content">{this.renderIncomingData()}</div>
+        </main>
+      </div>
     );
   }
 }

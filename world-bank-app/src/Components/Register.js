@@ -3,9 +3,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import invalidChars from "../invalidChars";
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
+import { Switch, Link } from "react-router-dom";
 import Network from "./Network";
-import { withCookies } from "react-cookie";
 
 const network = new Network();
 
@@ -47,7 +46,7 @@ class Register extends React.Component {
   }
 
   isUsernameValid(username) {
-    if (username.includes(this.state.invalidChars)) {
+    if (username.includes(this.state.invalidChars) || username.length < 8) {
       return false;
     } else if (!username) {
       return false;
@@ -122,87 +121,94 @@ class Register extends React.Component {
 
   getRegister() {
     return (
-      <Form onSubmit={(e) => this.handleSubmit(e)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            minLength="5"
-            maxLength="100"
-            required
-            value={this.state.usernameInput}
-            onChange={(e) => this.handleUsernameInput(e)}
-          />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
+      <div className="spacing">
+        <div className="registerPage">
+          <Form onSubmit={(e) => this.handleSubmit(e)}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label className="username-label">Email address</Form.Label>
+              <Form.Control
+                type="username"
+                placeholder="Enter email"
+                minLength="5"
+                maxLength="100"
+                required
+                value={this.state.usernameInput}
+                onChange={(e) => this.handleUsernameInput(e)}
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
 
-        {this.isUsernameValid(this.state.usernameInput)
-          ? this.getPass("username")
-          : this.getWarning("username")}
+            {this.isUsernameValid(this.state.usernameInput)
+              ? this.getPass("username")
+              : this.getWarning("username")}
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter password"
-            minLength="8"
-            maxLength="20"
-            required
-            value={this.state.passwordInput}
-            onChange={(e) => this.handlePasswordInput(e)}
-          />
-          <Form.Text id="passwordHelpBlock" muted>
-            Your password must be 8-20 characters long, contain letters and
-            numbers, and must not contain spaces, special characters, or emoji.
-          </Form.Text>
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label className="password-label">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter password"
+                minLength="8"
+                maxLength="20"
+                required
+                value={this.state.passwordInput}
+                onChange={(e) => this.handlePasswordInput(e)}
+              />
+              <Form.Text id="passwordHelpBlock" muted>
+                Your password must be 8-20 characters long, contain letters and
+                numbers, and must not contain spaces, special characters, or
+                emoji.
+              </Form.Text>
+            </Form.Group>
 
-        {this.isPasswordValid(this.state.passwordInput)
-          ? this.getPass("password")
-          : this.getWarning("password")}
+            {this.isPasswordValid(this.state.passwordInput)
+              ? this.getPass("password")
+              : this.getWarning("password")}
 
-        <Form.Group className="mb-3" controlId="formConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm password"
-            minLength="8"
-            maxLength="20"
-            required
-            value={this.state.confirmPasswordInput}
-            onChange={(e) => this.handleConfirmPasswordInput(e)}
-          />
-        </Form.Group>
+            <Form.Group className="mb-3" controlId="formConfirmPassword">
+              <Form.Label className="password-label">
+                Confirm Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Confirm password"
+                minLength="8"
+                maxLength="20"
+                required
+                value={this.state.confirmPasswordInput}
+                onChange={(e) => this.handleConfirmPasswordInput(e)}
+              />
+            </Form.Group>
 
-        {this.doPasswordsMatch(
-          this.state.passwordInput,
-          this.state.confirmPasswordInput
-        ) ? (
-          <Alert variant="success">Passwords match!</Alert>
-        ) : (
-          <Alert variant="danger"> Passwords do not match.</Alert>
-        )}
+            {this.doPasswordsMatch(
+              this.state.passwordInput,
+              this.state.confirmPasswordInput
+            ) ? (
+              <Alert variant="success">Passwords match!</Alert>
+            ) : (
+              <Alert variant="danger"> Passwords do not match.</Alert>
+            )}
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check
-            type="checkbox"
-            label="By ticking this box, you agree that you have read the Terms and Conditions."
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-        <Form.Group className="mb-3" controlId="formBasicButton">
-          <Form.Text className="text">Already have an account? </Form.Text>
-          <Link to="/login">
-            <Button variant="secondary">Login</Button>
-          </Link>
-        </Form.Group>
-      </Form>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+              <Form.Check
+                type="checkbox"
+                label="By ticking this box, you agree that you have read the Terms and Conditions."
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Register
+            </Button>
+            <Form.Group className="mb-3" controlId="formBasicButton">
+              <Form.Text className="text">Already have an account? </Form.Text>
+              <Link to="/login">
+                <Button variant="secondary">Login</Button>
+              </Link>
+            </Form.Group>
+          </Form>
+        </div>
+      </div>
     );
   }
 
@@ -221,4 +227,4 @@ class Register extends React.Component {
   }
 }
 
-export default withCookies(Register);
+export default Register;

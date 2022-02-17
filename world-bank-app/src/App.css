@@ -37,6 +37,15 @@
   }
 }
 
+body {
+  background-color: darkcyan;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  padding-left: 200px;
+  padding-right: 200px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .results-content {
   display: flex;
   flex-direction: row;
@@ -46,6 +55,7 @@
   width: 100%;
 }
 
+/* CSS for Results Page */
 .rendered-data {
   margin-bottom: 50px;
   width: 40%;
@@ -63,7 +73,6 @@
   margin-right: 10px;
 }
 
-/* CSS for Results Page */
 #results {
   background: black;
 }
@@ -73,11 +82,64 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.results-content {
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* .results-content {
+
+} */
 
 .graph-plot {
   height: 300px;
   width: 100%;
+}
+
+/* CSS for Login Page and Register Page */
+.loginPage,
+.registerPage {
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+/* CSS for Login Page */
+.spacing {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginPage {
+  align-content: stretch;
+  padding-bottom: 30px;
+}
+
+/* CSS for Register Page */
+
+.registerPage {
+  /* align-content: stretch; */
+  /* padding-top: 50px; */
+}
+
+.password-label,
+.username-label {
+  font-weight: bold;
+}
+
+#register-redirect {
+  padding-top: 20px;
+}
+.register-label {
+  padding-right: 10px;
+}
+
+/* CSS for Search Page */
+.header-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+#search-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
 }

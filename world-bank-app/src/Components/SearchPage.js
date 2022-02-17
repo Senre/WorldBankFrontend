@@ -93,17 +93,25 @@ class SearchPage extends React.Component {
   };
 
   componentDidMount = async () => {
-    const countries = await this.getCountryNames();
     const indicators = await this.getIndicatorNames();
+    const countries = await this.getCountryNames();
     this.setState({ indicatorList: indicators, countriesList: countries });
   };
 
   getIndicatorNames = async () => {
-    return await this.network.fetchIndicatorNames();
+    const response = await this.network.fetchIndicatorNames();
+    const indicators = response.rows.map((entry) => {
+      return entry.indicatorname;
+    });
+    return indicators;
   };
 
   getCountryNames = async () => {
-    return await this.network.fetchCountryNames();
+    const response = await this.network.fetchCountryNames();
+    const countries = response.rows.map((entry) => {
+      return entry.shortname;
+    });
+    return countries;
   };
 
   activateCompare = async () => {
@@ -140,6 +148,7 @@ class SearchPage extends React.Component {
 
   renderSearchForm = () => {
     return (
+      // <div className="spacing">
       <div className="search-section">
         <Form onSubmit={this.handleSubmit}>
           <Row>
@@ -203,19 +212,22 @@ class SearchPage extends React.Component {
           </Button>
         </Form>
       </div>
+      // </div>
     );
   };
 
   render() {
     return (
       <main>
-        <header className="main-header">
-          <Header
-            setData={() => this.props.setData()}
-            logIn={() => this.props.logIn()}
-          ></Header>
-        </header>
-        {this.renderSearchForm()}
+        <div className="spacing">
+          <header className="main-header">
+            <Header
+              setData={() => this.props.setData()}
+              logIn={() => this.props.logIn()}
+            ></Header>
+          </header>
+        </div>
+        <div className="spacing">{this.renderSearchForm()}</div>
       </main>
     );
   }
