@@ -80,7 +80,7 @@ class Header extends React.Component {
         <div className="header-search-button">
           <Link to="/home">
             <Button variant="primary" onClick={() => this.props.setData()}>
-              Search
+              Home
             </Button>
           </Link>
           <Link to="/login">
