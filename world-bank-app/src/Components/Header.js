@@ -35,13 +35,44 @@ class Header extends React.Component {
     return searches.map((search, i) => {
       const { created_at, country, indicator, start_year, end_year } = search;
       return (
-        <Dropdown.Item key={i} value={search}>
-          {country}, {indicator}, between {start_year} and {end_year} at:
+        <Dropdown.Item eventKey={i}>
+          {country}, {indicator}, between {start_year} and {end_year} |{" "}
           {created_at}
         </Dropdown.Item>
       );
     });
   }
+
+  fireHistoricSearch = async (e) => {
+    const { userSearches } = this.state;
+    const { country, indicator, start_year, end_year } =
+      userSearches[Number(e)];
+
+    const compareCountries = country.split(" vs ");
+    if (compareCountries.length > 1) {
+      const response = await this.network.fetchCountryData(
+        compareCountries[0],
+        indicator,
+        start_year,
+        end_year
+      );
+      const compareResponse = await this.network.fetchCountryData(
+        compareCountries[1],
+        indicator,
+        start_year,
+        end_year
+      );
+      this.props.setData(response, compareResponse);
+    } else {
+      const response = await this.network.fetchCountryData(
+        country,
+        indicator,
+        start_year,
+        end_year
+      );
+      this.props.setData(response);
+    }
+  };
 
   render() {
     return (
@@ -57,7 +88,7 @@ class Header extends React.Component {
               Log Out
             </Button>
           </Link>
-          <Dropdown>
+          <Dropdown onSelect={this.fireHistoricSearch}>
             <Dropdown.Toggle id="history-dropdown" variant="secondary">
               History
             </Dropdown.Toggle>
