@@ -28,7 +28,6 @@ class Header extends React.Component {
     const user_id = cookies.get("user_id");
     const searches = await this.network.getUserSearches(user_id);
     this.setState({ userSearches: searches });
-    console.log(searches);
   };
 
   addSearchesToDropdown(searches) {
@@ -71,7 +70,6 @@ class Header extends React.Component {
         start_year,
         end_year
       );
-      console.log(response);
       this.props.setData(response);
     }
   };
