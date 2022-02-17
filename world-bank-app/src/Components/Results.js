@@ -1,7 +1,6 @@
 import React from "react";
 import Graph from "./Graph";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import Header from "./Header";
 
 class Results extends React.Component {
   constructor(props) {
@@ -137,20 +136,7 @@ class Results extends React.Component {
     return (
       <main>
         <header className="main-header">
-          <div className="header-buttons">
-            <div className="header-search-button" id="results">
-              <Link to="/home">
-                <Button variant="primary" onClick={() => this.props.setData()}>
-                  Search
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button variant="primary" onClick={() => this.props.logIn()}>
-                  Log Out
-                </Button>
-              </Link>
-            </div>
-          </div>
+          <Header setData={() => this.props.setData()} />
         </header>
         <h1 className="results-title">
           {comparison
