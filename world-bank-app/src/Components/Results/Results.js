@@ -114,19 +114,22 @@ class Results extends React.Component {
       );
 
       return dataMain.map((set, i) => {
-        return (
+        const image = this.renderComparison(set, dataCompare[i]);
+        return image ? (
           <div key={i} className="rendered-data">
-            {this.renderComparison(set, dataCompare[i])}
+            {image}
           </div>
-        );
+        ) : null;
       });
     } else {
       return sortedData.map((set, i) => {
-        return (
+        const image = this.renderLineChart(set);
+        console.log(image ? true : false);
+        return image ? (
           <div key={i} className="rendered-data">
-            {this.renderLineChart(set)}
+            {image}
           </div>
-        );
+        ) : null;
       });
     }
   };
@@ -144,7 +147,9 @@ class Results extends React.Component {
               ? `${data[0].countryname} Vs. ${compareData[0].countryname}`
               : data[0].countryname}
           </h1>
-          <div className="results-content">{this.renderIncomingData()}</div>
+          <div className="results-content">
+            {this.renderIncomingData().filter((element) => element)}
+          </div>
         </main>
       </div>
     );
