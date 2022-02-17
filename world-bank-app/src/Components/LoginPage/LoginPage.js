@@ -31,6 +31,7 @@ class LoginPage extends React.Component {
     const { email, password } = this.state;
     if (email === "admin" && password === "admin") {
       this.props.setAdmin();
+      this.props.logIn();
     } else if (email && password) {
       const response = await this.network.loggingIn(email, password);
       console.log(response);
