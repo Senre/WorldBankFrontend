@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Network from "./Network";
+import { withCookies } from "react-cookie";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -99,4 +100,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default withCookies(LoginPage);
