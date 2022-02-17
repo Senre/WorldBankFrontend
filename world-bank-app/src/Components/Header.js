@@ -84,11 +84,7 @@ class Header extends React.Component {
       <div className="header-buttons">
         <div className="header-search-button">
           <Link to="/home">
-            <Button
-              variant="primary"
-              onClick={() => this.props.setData()}
-              // disabled={this.props.admin}
-            >
+            <Button variant="primary" onClick={() => this.props.setData()}>
               Home
             </Button>
           </Link>
