@@ -166,7 +166,6 @@ class SearchPage extends React.Component {
 
   renderSearchForm = () => {
     return (
-      // <div className="spacing">
       <div className="search-section">
         <Form onSubmit={this.handleSubmit}>
           <Row>
@@ -180,13 +179,15 @@ class SearchPage extends React.Component {
                   id="country"
                 />
                 {this.state.compare && this.comparedCountryForm()}
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={this.activateCompare}
-                >
-                  {this.state.compare ? "-" : "+"}
-                </Button>
+                <div className="compare-btn">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={this.activateCompare}
+                  >
+                    {this.state.compare ? "-" : "+"}
+                  </Button>
+                </div>
               </Form.Group>
             </Col>
             <Col xs={5}>
@@ -233,13 +234,13 @@ class SearchPage extends React.Component {
               </Form.Group>
             </Col>
           </Row>
-
-          <Button data-testid="submit-button" variant="primary" type="submit">
-            Submit
-          </Button>
+          <div className="search-btn">
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </div>
         </Form>
       </div>
-      // </div>
     );
   };
 

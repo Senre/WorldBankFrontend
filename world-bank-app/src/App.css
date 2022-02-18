@@ -120,3 +120,13 @@ h5 {
   justify-content: space-between;
   flex-direction: row;
 }
+
+.search-btn,
+.compare-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-btn {
+  padding-top: 10px;
+}
