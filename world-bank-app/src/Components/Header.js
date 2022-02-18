@@ -79,33 +79,29 @@ class Header extends React.Component {
   };
 
   render() {
-    return (
+   return (
       <div className="header-buttons">
-        <div id="home-logout-btn">
-          <Link to="/home">
-            <Button variant="primary" onClick={() => this.props.setData()}>
-              Home
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
-              Log Out
-            </Button>
-          </Link>
-        </div>
-        {this.props.admin || (
-          <div className="history-btn">
-            <Dropdown onSelect={this.fireHistoricSearch}>
-              <Dropdown.Toggle id="history-dropdown" variant="secondary">
-                History
-              </Dropdown.Toggle>
+        <Link to="/home">
+          <Button variant="primary" onClick={() => this.props.setData()}>
+            Home
+          </Button>
+        </Link>
+        <div className="history-btn">
+          <Dropdown onSelect={this.fireHistoricSearch}>
+            <Dropdown.Toggle id="history-dropdown" variant="secondary">
+              History
+            </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                {this.addSearchesToDropdown(this.state.userSearches)}
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        )}
+            <Dropdown.Menu>
+              {this.addSearchesToDropdown(this.state.userSearches)}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <Link to="/login">
+          <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
+            Log Out
+          </Button>
+        </Link>
       </div>
     );
   }
