@@ -81,18 +81,11 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header-buttons">
-        <div id="home-logout-btn">
-          <Link to="/home">
-            <Button variant="primary" onClick={() => this.props.setData()}>
-              Home
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
-              Log Out
-            </Button>
-          </Link>
-        </div>
+        <Link to="/home">
+          <Button variant="primary" onClick={() => this.props.setData()}>
+            Home
+          </Button>
+        </Link>
         <div className="history-btn">
           <Dropdown onSelect={this.fireHistoricSearch}>
             <Dropdown.Toggle id="history-dropdown" variant="secondary">
@@ -104,6 +97,11 @@ class Header extends React.Component {
             </Dropdown.Menu>
           </Dropdown>
         </div>
+        <Link to="/login">
+          <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
+            Log Out
+          </Button>
+        </Link>
       </div>
     );
   }
