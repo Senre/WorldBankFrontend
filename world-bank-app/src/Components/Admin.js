@@ -30,7 +30,8 @@ class Admin extends React.Component {
 
   getAllSearches = async () => {
     const response = await this.network.getAllSearches();
-    this.setState({ searches: response });
+    console.log(response);
+    this.setState({ searches: response.rows });
   };
 
   listAllSearches = (searches) => {
