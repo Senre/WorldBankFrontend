@@ -54,7 +54,7 @@ class LoginPage extends React.Component {
       <div>
         <header className="spacing">
           <h1>Welcome to the World Bank Dashboard!</h1>
-          <img src="http://www.worldbank.org/" alt="WBD logo"></img>
+          <img src="WBG.png" alt="WBD logo"></img>
         </header>
         <div className="spacing">
           <h5>Please login to search through the World Bank Database.</h5>
@@ -67,7 +67,6 @@ class LoginPage extends React.Component {
                 <Form.Group className="mb-3">
                   <Form.Label className="username-label">Username</Form.Label>
                   <Form.Control
-                    data-testid="username-control"
                     className="username-input"
                     type="text"
                     placeholder="Enter email"
@@ -80,7 +79,6 @@ class LoginPage extends React.Component {
                 <Form.Group className="mb-3">
                   <Form.Label className="password-label">Password</Form.Label>
                   <Form.Control
-                    data-testid="password-control"
                     className="password-input"
                     type="password"
                     placeholder="Password"
@@ -89,12 +87,7 @@ class LoginPage extends React.Component {
                     onChange={(e) => this.handleChange(e)}
                   />
                 </Form.Group>
-                <Button
-                  data-testid="login-button"
-                  className="example"
-                  variant="primary"
-                  type="submit"
-                >
+                <Button className="example" variant="primary" type="submit">
                   Submit
                 </Button>
                 <Form.Group className="mb-3" id="register-redirect">
@@ -102,9 +95,7 @@ class LoginPage extends React.Component {
                     Don't have an account?
                   </Form.Label>
                   <Link to="/register">
-                    <Button data-testid="register-button" variant="primary">
-                      Create an Account
-                    </Button>
+                    <Button variant="primary">Create an Account</Button>
                   </Link>
                 </Form.Group>
               </Form>
