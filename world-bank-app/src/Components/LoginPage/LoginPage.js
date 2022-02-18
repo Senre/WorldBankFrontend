@@ -54,7 +54,6 @@ class LoginPage extends React.Component {
       <div>
         <header className="spacing">
           <h1>Welcome to the World Bank Dashboard!</h1>
-          <img src="WBG.png" alt="WBD logo"></img>
         </header>
         <div className="spacing">
           <h5>Please login to search through the World Bank Database.</h5>
