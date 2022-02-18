@@ -34,7 +34,7 @@ class SearchPage extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    this.alternateLoading();
+
     const { cookies } = this.props;
     console.log(cookies.getAll());
     const user_id = cookies.get("user_id");
@@ -54,6 +54,7 @@ class SearchPage extends React.Component {
       countriesList.includes(countryCompare[0])
     ) {
       console.log("submitted");
+      this.alternateLoading();
       const response = await this.network.fetchCountryData(
         country,
         indicator,
@@ -75,7 +76,9 @@ class SearchPage extends React.Component {
         user_id
       );
       this.props.setData(response, compareResponse);
+      this.alternateLoading();
     } else if (countriesList.includes(country[0])) {
+      this.alternateLoading();
       const response = await this.network.fetchCountryData(
         country,
         indicator,
@@ -90,10 +93,10 @@ class SearchPage extends React.Component {
         user_id
       );
       this.props.setData(response);
+      this.alternateLoading();
     } else {
       console.log("Invalid Country");
     }
-    this.alternateLoading();
   };
 
   componentDidMount = async () => {

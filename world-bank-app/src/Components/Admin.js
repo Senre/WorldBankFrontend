@@ -84,7 +84,7 @@ class Admin extends React.Component {
     return (
       <div>
         <header>
-          <Button onClick={() => this.props.setAdmin()} variant="danger">
+          <Button onClick={() => this.props.exitAdmin()} variant="danger">
             Exit
           </Button>
         </header>

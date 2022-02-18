@@ -124,7 +124,6 @@ class Results extends React.Component {
     } else {
       return sortedData.map((set, i) => {
         const image = this.renderLineChart(set);
-        console.log(image ? true : false);
         return image ? (
           <div key={i} className="rendered-data">
             {image}

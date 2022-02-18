@@ -28,7 +28,6 @@ class Header extends React.Component {
     const user_id = cookies.get("user_id");
     const searches = await this.network.getUserSearches(user_id);
     this.setState({ userSearches: searches });
-    console.log(searches);
   };
 
   addSearchesToDropdown(searches) {
@@ -71,9 +70,12 @@ class Header extends React.Component {
         start_year,
         end_year
       );
-      console.log(response);
       this.props.setData(response);
     }
+  };
+
+  logInOrExitAdmin = () => {
+    this.props.admin ? this.props.exitAdmin() : this.props.logIn();
   };
 
   render() {
@@ -86,7 +88,7 @@ class Header extends React.Component {
             </Button>
           </Link>
           <Link to="/login">
-            <Button variant="primary" onClick={() => this.props.logIn()}>
+            <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
               Log Out
             </Button>
           </Link>

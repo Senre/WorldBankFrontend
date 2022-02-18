@@ -57,15 +57,24 @@ class App extends React.Component {
     console.log(cookies.getAll());
   };
 
+  exitAdmin = () => {
+    this.logIn();
+    this.setAdmin();
+  };
+
   render() {
     return (
       <Switch>
         <Route path="/home">
           {this.state.results.length === 0 ? (
-            <SearchPage
-              setData={(data, compareData) => this.setData(data, compareData)}
-              logIn={() => this.logIn()}
-            />
+            this.state.admin ? (
+              <Redirect to="/admin" />
+            ) : (
+              <SearchPage
+                setData={(data, compareData) => this.setData(data, compareData)}
+                logIn={() => this.logIn()}
+              />
+            )
           ) : (
             <Redirect to="/results" />
           )}
@@ -77,9 +86,9 @@ class App extends React.Component {
             <Register logIn={(username) => this.logIn(username)} />
           )}
         </Route>
-        <Route path="/login" component={LoginPage}>
+        <Route path="/login">
           {this.state.admin && <Redirect to="/admin" />}
-          {this.state.isLoggedIn ? (
+          {this.state.isLoggedIn && !this.state.admin ? (
             <Redirect to="/home" />
           ) : (
             <LoginPage
@@ -94,6 +103,8 @@ class App extends React.Component {
           ) : (
             <Results
               data={this.state.results}
+              admin={this.state.admin}
+              exitAdmin={() => this.exitAdmin()}
               compareData={this.state.compareResults}
               setData={() => this.setData()}
               logIn={() => this.logIn()}
@@ -104,7 +115,7 @@ class App extends React.Component {
           {this.state.admin ? (
             this.state.results.length === 0 ? (
               <Admin
-                setAdmin={() => this.setAdmin()}
+                exitAdmin={() => this.exitAdmin()}
                 setData={(data, compareData) => this.setData(data, compareData)}
               />
             ) : (
