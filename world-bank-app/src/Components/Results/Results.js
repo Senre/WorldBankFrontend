@@ -124,7 +124,6 @@ class Results extends React.Component {
     } else {
       return sortedData.map((set, i) => {
         const image = this.renderLineChart(set);
-        console.log(image ? true : false);
         return image ? (
           <div key={i} className="rendered-data">
             {image}
@@ -140,7 +139,12 @@ class Results extends React.Component {
       <div className="spacing">
         <main>
           <header className="main-header">
-            <Header setData={() => this.props.setData()} />
+            <Header
+              setData={() => this.props.setData()}
+              logIn={() => this.props.logIn()}
+              admin={this.props.admin}
+              exitAdmin={() => this.props.exitAdmin()}
+            />
           </header>
           <h1 className="results-title">
             {comparison

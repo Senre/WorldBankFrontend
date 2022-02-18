@@ -74,6 +74,10 @@ class Header extends React.Component {
     }
   };
 
+  logInOrExitAdmin = () => {
+    this.props.admin ? this.props.exitAdmin() : this.props.logIn();
+  };
+
   render() {
     return (
       <div className="header-buttons">
@@ -84,7 +88,7 @@ class Header extends React.Component {
             </Button>
           </Link>
           <Link to="/login">
-            <Button variant="primary" onClick={() => this.props.logIn()}>
+            <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
               Log Out
             </Button>
           </Link>
