@@ -79,7 +79,7 @@ class Header extends React.Component {
   };
 
   render() {
-    return (
+   return (
       <div className="header-buttons">
         <Link to="/home">
           <Button variant="primary" onClick={() => this.props.setData()}>

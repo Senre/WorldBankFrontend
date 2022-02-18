@@ -29,6 +29,7 @@ class App extends React.Component {
 
   setAdmin = () => {
     const newAdmin = this.state.admin;
+    this.logIn();
     this.setState({ admin: !newAdmin });
   };
 
@@ -50,6 +51,7 @@ class App extends React.Component {
       cookies.remove("sessionId");
       cookies.remove("user_id");
       cookies.remove("email");
+      this.setData();
       this.setState({ isLoggedIn: !currentState, username: "" });
     } else {
       this.setState({ isLoggedIn: true, user: username });

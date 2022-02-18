@@ -140,7 +140,10 @@ class Results extends React.Component {
         <main>
           <div className="spacing">
             <header className="main-header">
-              <Header setData={() => this.props.setData()} />
+              <Header
+                setData={() => this.props.setData()}
+                logIn={() => this.props.logIn()}
+              />
             </header>
           </div>
           <div className="spacing">
