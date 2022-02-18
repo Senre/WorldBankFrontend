@@ -150,7 +150,7 @@ class SearchPage extends React.Component {
 
   comparedCountryForm = () => {
     return (
-      <Row>
+      <Row className="compare-input">
         <Form.Group className="mb-3" id="form-country-search" as={Col}>
           <Typeahead
             onChange={(selected) => this.setState({ countryCompare: selected })}
