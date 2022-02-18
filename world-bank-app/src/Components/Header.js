@@ -28,7 +28,6 @@ class Header extends React.Component {
     const user_id = cookies.get("user_id");
     const searches = await this.network.getUserSearches(user_id);
     this.setState({ userSearches: searches });
-    console.log(searches);
   };
 
   addSearchesToDropdown(searches) {
@@ -71,25 +70,30 @@ class Header extends React.Component {
         start_year,
         end_year
       );
-      console.log(response);
       this.props.setData(response);
     }
+  };
+
+  logInOrExitAdmin = () => {
+    this.props.admin ? this.props.exitAdmin() : this.props.logIn();
   };
 
   render() {
     return (
       <div className="header-buttons">
-        <div className="header-search-button">
+        <div id="home-logout-btn">
           <Link to="/home">
             <Button variant="primary" onClick={() => this.props.setData()}>
               Home
             </Button>
           </Link>
           <Link to="/login">
-            <Button variant="primary" onClick={() => this.props.logIn()}>
+            <Button variant="primary" onClick={() => this.logInOrExitAdmin()}>
               Log Out
             </Button>
           </Link>
+        </div>
+        <div className="history-btn">
           <Dropdown onSelect={this.fireHistoricSearch}>
             <Dropdown.Toggle id="history-dropdown" variant="secondary">
               History

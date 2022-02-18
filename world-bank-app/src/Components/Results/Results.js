@@ -124,7 +124,6 @@ class Results extends React.Component {
     } else {
       return sortedData.map((set, i) => {
         const image = this.renderLineChart(set);
-        console.log(image ? true : false);
         return image ? (
           <div key={i} className="rendered-data">
             {image}
@@ -137,18 +136,23 @@ class Results extends React.Component {
   render() {
     const { data, compareData, comparison } = this.state;
     return (
-      <div className="spacing">
+      <div>
         <main>
-          <header className="main-header">
-            <Header setData={() => this.props.setData()} />
-          </header>
-          <h1 className="results-title">
-            {comparison
-              ? `${data[0].countryname} Vs. ${compareData[0].countryname}`
-              : data[0].countryname}
-          </h1>
-          <div className="results-content">
-            {this.renderIncomingData().filter((element) => element)}
+          <div className="spacing">
+            <header className="main-header">
+              <Header setData={() => this.props.setData()} />
+            </header>
+          </div>
+          <div className="spacing">
+            <h1 className="results-title">
+              {comparison
+                ? `${data[0].countryname} vs. ${compareData[0].countryname}`
+                : data[0].countryname}
+            </h1>
+            <hr />
+            <div className="results-content">
+              {this.renderIncomingData().filter((element) => element)}
+            </div>
           </div>
         </main>
       </div>

@@ -30,7 +30,8 @@ class Admin extends React.Component {
 
   getAllSearches = async () => {
     const response = await this.network.getAllSearches();
-    this.setState({ searches: response });
+    console.log(response);
+    this.setState({ searches: response.rows });
   };
 
   listAllSearches = (searches) => {
@@ -84,7 +85,7 @@ class Admin extends React.Component {
     return (
       <div>
         <header>
-          <Button onClick={() => this.props.setAdmin()} variant="danger">
+          <Button onClick={() => this.props.exitAdmin()} variant="danger">
             Exit
           </Button>
         </header>

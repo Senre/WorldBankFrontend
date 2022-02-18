@@ -3,6 +3,7 @@ export default class Network {
     const endpoint = "http://localhost:8080/register";
     const response = await fetch(endpoint, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -12,8 +13,7 @@ export default class Network {
       }),
     });
 
-    const json = await response;
-    return json;
+    return response;
   }
 
   fetchCountryData = async (country, indicator, startYear, endYear) => {

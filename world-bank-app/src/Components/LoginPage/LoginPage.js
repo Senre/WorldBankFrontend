@@ -29,9 +29,9 @@ class LoginPage extends React.Component {
   async handleSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
-
     if (email === "admin" && password === "admin") {
       this.props.setAdmin();
+      this.props.logIn();
     } else if (email && password) {
       const response = await this.network.loggingIn(email, password);
       console.log(response);
@@ -51,58 +51,64 @@ class LoginPage extends React.Component {
 
   loginPopup() {
     return (
-      <div className="spacing">
-        <div className="loginPage">
-          {/* <div>
-            <h3>Please login to access and search the World Bank Database</h3>
-          </div> */}
-          <div>
-            <Form className="form" onSubmit={(e) => this.handleSubmit(e)}>
-              <Form.Group className="mb-3">
-                <Form.Label className="username-label">Username</Form.Label>
-                <Form.Control
-                  data-testid="username-control"
-                  required
-                  className="username-input"
-                  type="text"
-                  placeholder="Enter username"
-                  value={this.state.email}
-                  id="email"
-                  onChange={(e) => this.handleChange(e)}
-                />
-              </Form.Group>
+      <div>
+        <header className="spacing">
+          <h1>Welcome to the World Bank Dashboard!</h1>
+          <img src="http://www.worldbank.org/" alt="WBD logo"></img>
+        </header>
+        <div className="spacing">
+          <h5>Please login to search through the World Bank Database.</h5>
+        </div>
+        <div className="spacing">
+          <div className="loginPage">
+            <div></div>
+            <div>
+              <Form className="form" onSubmit={(e) => this.handleSubmit(e)}>
+                <Form.Group className="mb-3">
+                  <Form.Label className="username-label">Username</Form.Label>
+                  <Form.Control
+                    data-testid="username-control"
+                    className="username-input"
+                    type="text"
+                    placeholder="Enter email"
+                    value={this.state.email}
+                    id="email"
+                    onChange={(e) => this.handleChange(e)}
+                  />
+                </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label className="password-label">Password</Form.Label>
-                <Form.Control
-                  data-testid="password-control"
-                  required
-                  className="password-input"
-                  type="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  id="password"
-                  onChange={(e) => this.handleChange(e)}
-                />
-              </Form.Group>
-              <Button
-                data-testid="login-button"
-                variant="primary"
-                type="submit"
-              >
-                Submit
-              </Button>
-              <Form.Group className="mb-3" id="register-redirect">
-                <Form.Label className="register-label">
-                  Don't have an account?
-                </Form.Label>
-                <Link to="/register">
-                  <Button data-testid="register-button" variant="primary">
-                    Create an Account
-                  </Button>
-                </Link>
-              </Form.Group>
-            </Form>
+                <Form.Group className="mb-3">
+                  <Form.Label className="password-label">Password</Form.Label>
+                  <Form.Control
+                    data-testid="password-control"
+                    className="password-input"
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    id="password"
+                    onChange={(e) => this.handleChange(e)}
+                  />
+                </Form.Group>
+                <Button
+                  data-testid="login-button"
+                  className="example"
+                  variant="primary"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+                <Form.Group className="mb-3" id="register-redirect">
+                  <Form.Label className="register-label">
+                    Don't have an account?
+                  </Form.Label>
+                  <Link to="/register">
+                    <Button data-testid="register-button" variant="primary">
+                      Create an Account
+                    </Button>
+                  </Link>
+                </Form.Group>
+              </Form>
+            </div>
           </div>
         </div>
       </div>

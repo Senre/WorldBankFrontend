@@ -5,10 +5,16 @@ import invalidChars from "../../invalidChars";
 import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
 import Network from "../Network";
+import { withCookies, Cookies } from "react-cookie";
+import { instanceOf } from "prop-types";
 
 const network = new Network();
 
 class Register extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +38,6 @@ class Register extends React.Component {
       const json = await network.registerUser(username, password);
       console.log(json);
       if (json.status === 200) {
-        console.log("test");
         this.handleLogIn();
         this.setState({ success: true });
       } else if (json.status >= 400 && json.status < 600) {
@@ -231,4 +236,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+export default withCookies(Register);
