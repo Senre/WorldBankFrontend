@@ -118,11 +118,5 @@ h5 {
 .header-buttons {
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
-}
-
-#home-logout-btn {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
+  flex-direction: row;
 }
