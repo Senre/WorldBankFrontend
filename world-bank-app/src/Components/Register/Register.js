@@ -113,6 +113,10 @@ class Register extends React.Component {
 
   getRegister() {
     return (
+      <div>
+        <div className="spacing" id="login">
+          <h1>Register</h1>
+        </div>
       <div className="spacing">
         <div className="registerPage">
           <Form noValidate onSubmit={(e) => this.handleSubmit(e)}>
@@ -218,6 +222,7 @@ class Register extends React.Component {
           </Form>
         </div>
       </div>
+              </div>
     );
   }
 
