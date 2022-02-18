@@ -15,7 +15,7 @@ This project uses analytics from the World Bank to create an App that will displ
 
 This project has been created with:
 
-* Yarn version: 1.22.17
+* yarn version: 1.22.17
 * bootstrap version: 5.1.3
 * react version: 17.0.2
 * react-bootstrap version: 2.1.2
@@ -26,3 +26,10 @@ This project has been created with:
 * recharts version: 2.1.9
 
 ## Setup
+
+To run locally using yarn:
+```
+$ cd ../world-bank-app
+$ yarn install
+$ yarn start
+```
