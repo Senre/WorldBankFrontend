@@ -170,7 +170,7 @@ class SearchPage extends React.Component {
       <div className="search-section">
         <Form onSubmit={this.handleSubmit}>
           <Row>
-            <Col>
+            <Col xs={4}>
               <Form.Group className="mb-3" id="form-country-search">
                 <Typeahead
                   onChange={(selected) => this.setState({ country: selected })}
@@ -189,7 +189,7 @@ class SearchPage extends React.Component {
                 </Button>
               </Form.Group>
             </Col>
-            <Col xs={5}>
+            <Col xs={6}>
               <Form.Group className="mb-3">
                 <Typeahead
                   onChange={(selected) =>
