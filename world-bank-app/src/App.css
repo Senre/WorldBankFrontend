@@ -1,18 +1,15 @@
 .App {
   text-align: center;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,11 +20,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .App-link {
   color: #61dafb;
 }
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,16 +31,10 @@
     transform: rotate(360deg);
   }
 }
-
 body {
   background-color: darkcyan;
-  padding-top: 50px;
-  padding-bottom: 20px;
-  padding-left: 200px;
-  padding-right: 200px;
   font-family: Arial, Helvetica, sans-serif;
 }
-
 .results-content {
   display: flex;
   flex-direction: row;
@@ -54,92 +43,86 @@ body {
   height: 100%;
   width: 100%;
 }
-
 /* CSS for Results Page */
 .rendered-data {
   margin-bottom: 50px;
   width: 40%;
 }
-
 .graph-container {
   display: flex;
   flex-direction: column;
   height: fit-content;
   width: 100%;
 }
-
 .graph-container > h5 {
   margin-left: auto;
   margin-right: 10px;
 }
 
-#results {
-  background: black;
-}
-
 .results-title {
+  display: flex;
+  justify-content: center;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
 }
-
 /* .results-content {
-
 } */
-
 .graph-plot {
   height: 300px;
   width: 100%;
 }
-
 /* CSS for Login Page and Register Page */
 .loginPage,
 .registerPage {
-  font-family: Arial, Helvetica, sans-serif;
-  padding-top: 50px;
   display: flex;
   justify-content: center;
 }
 
-/* CSS for Login Page */
-.spacing {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
+h5 {
+  font-weight: bold;
 }
 
+.btn-primary {
+  background-color: darkcyan;
+  border: black;
+}
+
+.btn-secondary {
+  border: black;
+}
+/* CSS for Login Page */
+.spacing {
+  background: #fff;
+  padding: 1rem 3rem 1rem;
+  width: 900px;
+  margin: 2rem auto;
+  box-shadow: rgba(0, 0, 0, 0.05) -2px -2px 4px;
+}
 .loginPage {
   align-content: stretch;
   padding-bottom: 30px;
 }
-
 /* CSS for Register Page */
-
-.registerPage {
-  /* align-content: stretch; */
-  /* padding-top: 50px; */
-}
 
 .password-label,
 .username-label {
   font-weight: bold;
 }
-
 #register-redirect {
   padding-top: 20px;
 }
 .register-label {
   padding-right: 10px;
 }
-
 /* CSS for Search Page */
+
 .header-buttons {
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-#search-container {
+#home-logout-btn {
   display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }
