@@ -46,10 +46,14 @@ class Results extends React.Component {
       return <Graph data={altData} />;
     } else if (data.length === 1) {
       return (
-        <h3>
-          {data[0].indicatorname} for {data[0].countryname} was{" "}
-          {Number(data[0].value).toLocaleString()} in {data[0].year}
-        </h3>
+        <div>
+          <hr />
+          <h5>
+            {data[0].indicatorname} for {data[0].countryname} was{" "}
+            {Number(data[0].value).toLocaleString()} in {data[0].year}
+          </h5>
+          <hr />
+        </div>
       );
     }
   };
@@ -68,15 +72,18 @@ class Results extends React.Component {
     } else if (data.length === 1) {
       return (
         <div>
-          <h3>
+          <hr />
+          <h5>
             {data[0].indicatorname} for {data[0].countryname} was{" "}
             {Number(data[0].value).toLocaleString()} in {data[0].year}
-          </h3>
-          <h3>
+          </h5>
+          <hr />
+          <h5>
             {compareData[0].indicatorname} for {compareData[0].countryname} was{" "}
             {Number(compareData[0].value).toLocaleString()} in{" "}
             {compareData[0].year}
-          </h3>
+          </h5>
+          <hr />
         </div>
       );
     }
@@ -140,11 +147,7 @@ class Results extends React.Component {
         <main>
           <div className="spacing">
             <header className="main-header">
-              <Header
-                setData={() => this.props.setData()}
-                logIn={() => this.props.logIn()}
-                admin={this.props.admin}
-              />
+              <Header setData={() => this.props.setData()} />
             </header>
           </div>
           <div className="spacing">
