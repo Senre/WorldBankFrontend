@@ -2,7 +2,6 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import invalidChars from "../../invalidChars";
-import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
 import Network from "../Network";
 import { withCookies, Cookies } from "react-cookie";

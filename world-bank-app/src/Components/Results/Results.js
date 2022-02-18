@@ -143,6 +143,7 @@ class Results extends React.Component {
               <Header
                 setData={() => this.props.setData()}
                 logIn={() => this.props.logIn()}
+                exitAdmin={() => this.props.exitAdmin()}
                 admin={this.props.admin}
               />
             </header>

@@ -134,7 +134,13 @@ class SearchPage extends React.Component {
 
   getLoadingComponent = () => {
     return (
-      <Spinner size="lg" animation="border" role="status" variant="dark" />
+      <Spinner
+        size="lg"
+        animation="border"
+        role="status"
+        variant="dark"
+        id="loading"
+      />
     );
   };
 

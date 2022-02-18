@@ -134,3 +134,8 @@ h5 {
 .compare-input {
   padding-top: 10px;
 }
+
+#loading {
+  margin-left: 50%;
+  margin-right: 50%;
+}
