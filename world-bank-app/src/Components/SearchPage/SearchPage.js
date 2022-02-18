@@ -245,6 +245,83 @@ class SearchPage extends React.Component {
 
   render() {
     return (
+      <div className="search-section">
+        <Form onSubmit={this.handleSubmit}>
+          <Row>
+            <Col xs={3}>
+              <Form.Group className="mb-3" id="form-country-search">
+                <Typeahead
+                  onChange={(selected) => this.setState({ country: selected })}
+                  placeholder="Enter a Country..."
+                  size="lg"
+                  options={this.state.countriesList}
+                  id="country"
+                />
+                {this.state.compare && this.comparedCountryForm()}
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={this.activateCompare}
+                >
+                  {this.state.compare ? "-" : "+"}
+                </Button>
+              </Form.Group>
+            </Col>
+            <Col xs={5}>
+              <Form.Group className="mb-3">
+                <Typeahead
+                  onChange={(selected) =>
+                    this.setState({ indicator: selected })
+                  }
+                  placeholder="Enter an Indicator..."
+                  size="lg"
+                  options={this.state.indicatorList}
+                  id="indicator"
+                />
+                <Form.Text>Leave blank to include all.</Form.Text>
+              </Form.Group>
+            </Col>
+
+            <Col xs={2}>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  placeholder="Start Year"
+                  aria-label="Start Year"
+                  id="startYear"
+                  value={this.state.startYear}
+                  onChange={this.handleChange}
+                  type="number"
+                  // size="lg"
+                />
+                <Form.Text>From...</Form.Text>
+              </Form.Group>
+            </Col>
+            <Col xs={2}>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  placeholder="End Year"
+                  aria-label="End Year"
+                  id="endYear"
+                  value={this.state.endYear}
+                  onChange={this.handleChange}
+                  type="number"
+                  // size="lg"
+                />
+                <Form.Text>To...</Form.Text>
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </div>
+    );
+  };
+
+  render() {
+    return (
       <main>
         <div className="spacing">
           <header className="main-header">
