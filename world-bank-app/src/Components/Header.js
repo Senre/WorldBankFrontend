@@ -93,17 +93,19 @@ class Header extends React.Component {
             </Button>
           </Link>
         </div>
-        <div className="history-btn">
-          <Dropdown onSelect={this.fireHistoricSearch}>
-            <Dropdown.Toggle id="history-dropdown" variant="secondary">
-              History
-            </Dropdown.Toggle>
+        {this.props.admin || (
+          <div className="history-btn">
+            <Dropdown onSelect={this.fireHistoricSearch}>
+              <Dropdown.Toggle id="history-dropdown" variant="secondary">
+                History
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              {this.addSearchesToDropdown(this.state.userSearches)}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+              <Dropdown.Menu>
+                {this.addSearchesToDropdown(this.state.userSearches)}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        )}
       </div>
     );
   }
