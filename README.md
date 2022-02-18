@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-* [Introduction] (# introduction)
-* [Technologies] (# technologies)
-* [Setup] (# setup)
+* [Introduction] (-introduction)
+* [Technologies] (-technologies)
+* [Setup] (-setup)
 
 ## Introduction
 
