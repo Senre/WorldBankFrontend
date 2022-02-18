@@ -26,8 +26,10 @@ class Header extends React.Component {
   getUserSearches = async () => {
     const { cookies } = this.props;
     const user_id = cookies.get("user_id");
-    const searches = await this.network.getUserSearches(user_id);
-    this.setState({ userSearches: searches });
+    if (!this.props.admin) {
+      const searches = await this.network.getUserSearches(user_id);
+      this.setState({ userSearches: searches });
+    }
   };
 
   addSearchesToDropdown(searches) {
@@ -79,7 +81,7 @@ class Header extends React.Component {
   };
 
   render() {
-   return (
+    return (
       <div className="header-buttons">
         <Link to="/home">
           <Button variant="primary" onClick={() => this.props.setData()}>
