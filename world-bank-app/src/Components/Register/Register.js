@@ -48,17 +48,13 @@ class Register extends React.Component {
   isUsernameValid(username) {
     if (username.includes(this.state.invalidChars) || username.length < 8) {
       return false;
-    } else if (!username) {
-      return false;
     } else {
       return true;
     }
   }
 
   isPasswordValid(password) {
-    if (password.length > 25) {
-      return false;
-    } else if (!password) {
+    if (password.length < 8 || password.length > 25) {
       return false;
     } else {
       return true;
@@ -88,14 +84,6 @@ class Register extends React.Component {
     }
   }
 
-  getWarning(input) {
-    return <Alert variant="danger">This {input} is not valid.</Alert>;
-  }
-
-  getPass(input) {
-    return <Alert variant="success">This {input} is valid.</Alert>;
-  }
-
   handleUsernameInput(e) {
     this.setState({ usernameInput: e.target.value });
   }
@@ -123,31 +111,39 @@ class Register extends React.Component {
     return (
       <div className="spacing">
         <div className="registerPage">
-          <Form onSubmit={(e) => this.handleSubmit(e)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className="username-label">Email address</Form.Label>
+          <Form noValidate onSubmit={(e) => this.handleSubmit(e)}>
+            <Form.Group className="mb-3" controlId="validationCustom01">
+              <Form.Label className="username-label">Username</Form.Label>
               <Form.Control
-                type="username"
-                placeholder="Enter email"
-                minLength="5"
-                maxLength="100"
+                isInvalid={
+                  !this.isUsernameValid(this.state.usernameInput) &&
+                  this.state.usernameInput
+                }
+                data-testid="username-control"
+                type="text"
+                placeholder="Enter username"
+                minLength="8"
+                maxLength="20"
                 required
                 value={this.state.usernameInput}
                 onChange={(e) => this.handleUsernameInput(e)}
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
+                We'll never share your details with anyone else. <br />
+                Your username must be 8-20 characters long, contain letters and
+                numbers, and must not contain special characters.
               </Form.Text>
             </Form.Group>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 
-            {this.isUsernameValid(this.state.usernameInput)
-              ? this.getPass("username")
-              : this.getWarning("username")}
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="validationCustom02">
               <Form.Label className="password-label">Password</Form.Label>
               <Form.Control
+                isInvalid={
+                  !this.isPasswordValid(this.state.passwordInput) &&
+                  this.state.passwordInput
+                }
+                data-testid="password-control"
                 type="password"
                 placeholder="Enter password"
                 minLength="8"
@@ -156,22 +152,29 @@ class Register extends React.Component {
                 value={this.state.passwordInput}
                 onChange={(e) => this.handlePasswordInput(e)}
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Text id="passwordHelpBlock" muted>
                 Your password must be 8-20 characters long, contain letters and
                 numbers, and must not contain spaces, special characters, or
                 emoji.
               </Form.Text>
             </Form.Group>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 
-            {this.isPasswordValid(this.state.passwordInput)
-              ? this.getPass("password")
-              : this.getWarning("password")}
-
-            <Form.Group className="mb-3" controlId="formConfirmPassword">
+            <Form.Group className="mb-3" controlId="validationCustom03">
               <Form.Label className="password-label">
                 Confirm Password
               </Form.Label>
               <Form.Control
+                isInvalid={
+                  !this.doPasswordsMatch(
+                    this.state.passwordInput,
+                    this.state.confirmPasswordInput
+                  ) &&
+                  this.state.passwordInput &&
+                  this.state.confirmPasswordInput
+                }
+                data-testid="confirm-password-control"
                 type="password"
                 placeholder="Confirm password"
                 minLength="8"
@@ -182,32 +185,30 @@ class Register extends React.Component {
               />
             </Form.Group>
 
-            {this.doPasswordsMatch(
-              this.state.passwordInput,
-              this.state.confirmPasswordInput
-            ) ? (
-              <Alert variant="success">Passwords match!</Alert>
-            ) : (
-              <Alert variant="danger"> Passwords do not match.</Alert>
-            )}
-
             <Form.Group
               data-testid="register-checkbox-unchecked"
               className="mb-3"
-              controlId="formBasicCheckbox"
             >
               <Form.Check
-                type="checkbox"
+                required
                 label="By ticking this box, you agree that you have read the Terms and Conditions."
+                feedback="You must agree before submitting."
+                feedbackType="invalid"
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button
+              data-testid="register-button"
+              variant="primary"
+              type="submit"
+            >
               Register
             </Button>
             <Form.Group className="mb-3" controlId="formBasicButton">
               <Form.Text className="text">Already have an account? </Form.Text>
               <Link to="/login">
-                <Button variant="secondary">Login</Button>
+                <Button data-testid="login-button" variant="secondary">
+                  Login
+                </Button>
               </Link>
             </Form.Group>
           </Form>
@@ -222,10 +223,9 @@ class Register extends React.Component {
         {this.getRegister()}
         {this.state.error ? (
           <div class="alert alert-danger" role="alert">
-            Oops! Something went wrong. "{this.state.error}".
+            Oops! Something went wrong. {this.state.error}.
           </div>
         ) : null}
-        {this.state.success ? this.redirect() : null}
       </div>
     );
   }

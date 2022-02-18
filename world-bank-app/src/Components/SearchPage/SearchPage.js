@@ -222,7 +222,7 @@ class SearchPage extends React.Component {
             </Form.Group>
           </Row>
 
-          <Button variant="primary" type="submit">
+          <Button data-testid="submit-button" variant="primary" type="submit">
             Submit
           </Button>
         </Form>
