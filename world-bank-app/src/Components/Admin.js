@@ -83,7 +83,7 @@ class Admin extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="spacing">
         <header>
           <Button onClick={() => this.props.exitAdmin()} variant="danger">
             Exit
