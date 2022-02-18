@@ -70,7 +70,6 @@ class Header extends React.Component {
         start_year,
         end_year
       );
-      console.log(response);
       this.props.setData(response);
     }
   };
