@@ -1,17 +1,65 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-// import { rest } from "msw";
-// import { setupServer } from "msw/node";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  screen,
-  cleanup,
-} from "@testing-library/react";
+import { unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import LoginPage from "../LoginPage";
+
+let container = null;
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+describe("Login page form should include all elements", () => {
+  test("Username form element must load", () => {
+    act(() => {
+      render(
+        <Router>
+          <LoginPage />
+        </Router>,
+        container
+      );
+    });
+    const usernameInput = screen.getByPlaceholderText("Enter username");
+    expect(usernameInput).toBeInTheDocument();
+  });
+  test("Password form element must load", () => {
+    render(
+      <Router>
+        <LoginPage />
+      </Router>
+    );
+    const usernameForm = screen.getByPlaceholderText("Password");
+    expect(usernameForm).toBeInTheDocument();
+  });
+
+  test("Register button must load", () => {
+    render(
+      <Router>
+        <LoginPage />
+      </Router>
+    );
+    const registerButton = screen.getByTestId("register-button");
+    expect(registerButton).toBeInTheDocument();
+  });
+  test("Login button must load", () => {
+    render(
+      <Router>
+        <LoginPage />
+      </Router>
+    );
+    const loginButton = screen.getByTestId("login-button");
+    expect(loginButton).toBeInTheDocument();
+  });
+});
 
 describe("Login form should have corrects inputs", () => {
   test("Username placeholder", () => {
@@ -20,7 +68,7 @@ describe("Login form should have corrects inputs", () => {
         <LoginPage />
       </Router>
     );
-    const usernameInput = screen.getByLabelText("Username");
+    const usernameInput = screen.getByPlaceholderText("Enter username");
     expect(usernameInput).toHaveDisplayValue("");
   });
 
@@ -30,7 +78,29 @@ describe("Login form should have corrects inputs", () => {
         <LoginPage />
       </Router>
     );
-    const passwordInput = screen.getByLabelText("Password");
+    const passwordInput = screen.getByPlaceholderText("Password");
     expect(passwordInput).toHaveDisplayValue("");
+  });
+});
+
+describe("Login form input fields must all be required and load properly", () => {
+  test("Username field must be required", () => {
+    render(
+      <Router>
+        <LoginPage />
+      </Router>
+    );
+    const usernameInput = screen.getByTestId("username-control");
+    expect(usernameInput).toBeRequired();
+  });
+
+  test("Password field must be required", () => {
+    render(
+      <Router>
+        <LoginPage />
+      </Router>
+    );
+    const usernameInput = screen.getByTestId("password-control");
+    expect(usernameInput).toBeRequired();
   });
 });

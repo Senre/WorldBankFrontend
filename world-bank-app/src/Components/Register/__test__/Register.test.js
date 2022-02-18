@@ -1,36 +1,72 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { unmountComponentAtNode } from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-// import { rest } from "msw";
-// import { setupServer } from "msw/node";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  screen,
-  cleanup,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Register from "../Register";
+import { act } from "react-dom/test-utils";
 
-// const server = setupServer(
-//   rest.get("/greeting", (req, res, ctx) => {
-//     return res(ctx.json({ greeting: "hello there" }));
-//   })
-// );
+let container = null;
+beforeEach(() => {
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
 
-// beforeAll(() => server.listen());
-// afterEach(() => server.resetHandlers());
-// afterAll(() => server.close());
-
-// try cleanup to stop re-render every test run
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
 
 describe("Registration form should include all elements", () => {
-  render(
-    <Router>
-      <Register />
-    </Router>
-  );
+  test("Username form element must load", () => {
+    act(() => {
+      render(
+        <Router>
+          <Register />
+        </Router>,
+        container
+      );
+    });
+    const usernameForm = screen.getByPlaceholderText("Enter email");
+    expect(usernameForm).toBeInTheDocument();
+  });
+  test("Password form element must load", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const usernameForm = screen.getByPlaceholderText("Enter password");
+    expect(usernameForm).toBeInTheDocument();
+  });
+  test("Confirm password form element must load", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const usernameForm = screen.getByPlaceholderText("Confirm password");
+    expect(usernameForm).toBeInTheDocument();
+  });
+  test("Register button must load", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const registerButton = screen.getByTestId("register-button");
+    expect(registerButton).toBeInTheDocument();
+  });
+  test("Login button must load", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const loginButton = screen.getByTestId("login-button");
+    expect(loginButton).toBeInTheDocument();
+  });
 });
 
 describe("Registration form should have corrects inputs", () => {
@@ -75,10 +111,66 @@ describe("Registration form should have corrects inputs", () => {
   });
 });
 
-// test("Loads and displays register", async () => {
-//   render(<Register logIn={(username) => this.logIn(username)} />);
-//   fireEvent.click(screen.getByText(""));
-//   await waitFor(() => screen.getByRole("")); // check error
-//   expect(screen.getByRole("alert")).toHaveTextContent("Oops");
-//   expect(screen.getByRole("button")).not.toBeDisabled();
+describe("Form input fields must all be required", () => {
+  test("Username field must be required", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const usernameInput = screen.getByTestId("username-control");
+    expect(usernameInput).toBeRequired();
+  });
+
+  test("Password field must be required", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const usernameInput = screen.getByTestId("password-control");
+    expect(usernameInput).toBeRequired();
+  });
+
+  test("Confirm password field must be required", () => {
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
+    const usernameInput = screen.getByTestId("confirm-password-control");
+    expect(usernameInput).toBeRequired();
+  });
+});
+
+// describe("Buttons must be firing correctly", () => {
+//   test("Register button handleSubmit must fire", () => {
+//     handleSubmit = jest.fn();
+//     act(() => {
+//       render(
+//         <Router>
+//           <Register />
+//         </Router>,
+//         container
+//       );
+//     });
+
+//     const registerButton = document.querySelector(
+//       "[data-testid=register-button]"
+//     );
+//     expect(registerButton.innerHTML).toBe("Register");
+
+//     expect(handleSubmit).toHaveBeenCalledTimes(1);
+//   });
+
+//   test("Log in button handleSubmit must fire", () => {
+//     act(() => {
+//       render(
+//         <Router>
+//           <Register />
+//         </Router>,
+//         container
+//       );
+//     });
+//   });
 // });
