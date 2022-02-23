@@ -1,6 +1,7 @@
 export default class Network {
   async registerUser(username, password) {
-    const endpoint = "http://localhost:8080/register";
+    const endpoint =
+      "https://protected-everglades-27298.herokuapp.com/register";
     const response = await fetch(endpoint, {
       method: "POST",
       credentials: "include",
@@ -18,7 +19,7 @@ export default class Network {
 
   fetchCountryData = async (country, indicator, startYear, endYear) => {
     const response = await fetch(
-      `http://localhost:8080/${encodeURIComponent(
+      `https://protected-everglades-27298.herokuapp.com/${encodeURIComponent(
         country
       )}?indicator=${encodeURIComponent(
         indicator
@@ -35,21 +36,27 @@ export default class Network {
   };
 
   fetchIndicatorNames = async () => {
-    const response = await fetch("http://localhost:8080/indicators", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://protected-everglades-27298.herokuapp.com/indicators",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return await response.json();
   };
 
   fetchCountryNames = async () => {
-    const response = await fetch("http://localhost:8080/countries", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://protected-everglades-27298.herokuapp.com/countries",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return await response.json();
   };
@@ -60,14 +67,17 @@ export default class Network {
       password,
     };
 
-    const response = await fetch("http://localhost:8080/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      "https://protected-everglades-27298.herokuapp.com/login",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
 
     return response;
   };
@@ -80,38 +90,47 @@ export default class Network {
       end_year,
     };
 
-    const response = await fetch(`http://localhost:8080/searches/${user_id}`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      `https://protected-everglades-27298.herokuapp.com/searches/${user_id}`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
 
     return response;
   };
 
   getUserSearches = async (user_id) => {
-    const response = await fetch(`http://localhost:8080/searches/${user_id}`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `https://protected-everglades-27298.herokuapp.com/searches/${user_id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return await response.json();
   };
 
   getAllSearches = async () => {
-    const response = await fetch(`http://localhost:8080/searches`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `https://protected-everglades-27298.herokuapp.com/searches`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return await response.json();
   };
