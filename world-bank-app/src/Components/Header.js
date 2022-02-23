@@ -33,6 +33,7 @@ class Header extends React.Component {
   };
 
   addSearchesToDropdown(searches) {
+    console.log(document.cookie);
     return searches.map((search, i) => {
       const { created_at, country, indicator, start_year, end_year } = search;
       const indicatorPresent = indicator ? `${indicator},` : "";
