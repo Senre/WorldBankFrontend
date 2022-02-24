@@ -1,7 +1,7 @@
 export default class Network {
+  serverEndpoint = `${process.env.REACT_APP_SERVER}`;
   async registerUser(username, password) {
-    const endpoint =
-      "https://protected-everglades-27298.herokuapp.com/register";
+    const endpoint = `${this.serverEndpoint}/register`;
     const response = await fetch(endpoint, {
       method: "POST",
       credentials: "include",
@@ -19,7 +19,7 @@ export default class Network {
 
   fetchCountryData = async (country, indicator, startYear, endYear) => {
     const response = await fetch(
-      `https://protected-everglades-27298.herokuapp.com/${encodeURIComponent(
+      `${this.serverEndpoint}/${encodeURIComponent(
         country
       )}?indicator=${encodeURIComponent(
         indicator
@@ -36,48 +36,40 @@ export default class Network {
   };
 
   fetchIndicatorNames = async () => {
-    const response = await fetch(
-      "https://protected-everglades-27298.herokuapp.com/indicators",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${this.serverEndpoint}/indicators`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     return await response.json();
   };
 
   fetchCountryNames = async () => {
-    const response = await fetch(
-      "https://protected-everglades-27298.herokuapp.com/countries",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${this.serverEndpoint}/countries`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     return await response.json();
   };
 
   loggingIn = async (email, password) => {
+    console.log(this.serverEndpoint);
     const body = {
       email,
       password,
     };
 
-    const response = await fetch(
-      "https://protected-everglades-27298.herokuapp.com/login",
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const response = await fetch(`${this.serverEndpoint}/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
     return response;
   };
@@ -90,47 +82,38 @@ export default class Network {
       end_year,
     };
 
-    const response = await fetch(
-      `https://protected-everglades-27298.herokuapp.com/searches/${user_id}`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const response = await fetch(`${this.serverEndpoint}/searches/${user_id}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
 
     return response;
   };
 
   getUserSearches = async (user_id) => {
-    const response = await fetch(
-      `https://protected-everglades-27298.herokuapp.com/searches/${user_id}`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${this.serverEndpoint}/searches/${user_id}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     return await response.json();
   };
 
   getAllSearches = async () => {
-    const response = await fetch(
-      `https://protected-everglades-27298.herokuapp.com/searches`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${this.serverEndpoint}/searches`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     return await response.json();
   };
