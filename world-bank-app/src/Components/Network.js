@@ -1,5 +1,6 @@
 export default class Network {
   serverEndpoint = `${process.env.REACT_APP_SERVER}`;
+
   async registerUser(username, password) {
     const endpoint = `${this.serverEndpoint}/register`;
     const response = await fetch(endpoint, {
